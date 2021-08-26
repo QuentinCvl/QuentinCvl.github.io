@@ -1,0 +1,11 @@
+{
+  "name": "quentincvl_cv",
+  "title": "Quentin Cvl CV",
+  "version": "0.1",
+  "homepage": "http://localhost/Blog/index.php",
+  "author": "Quentin Cuvelier",
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.6.0"
+  }
+}
