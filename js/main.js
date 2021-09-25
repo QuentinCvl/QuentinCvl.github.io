@@ -1,13 +1,8 @@
-/* ===================================================================
- * Philosophy - Main JS
- *
- * ------------------------------------------------------------------- */
-
 (function($) {
 
     "use strict";
     
-    var cfg = {
+    let cfg = {
         scrollDuration : 800, // smoothscroll duration
         mailChimpURL   : 'https://facebook.us8.list-manage.com/subscribe/post?u=cdb7b577e41181934ed6a6a44&amp;id=e6957d85dc'   // mailchimp url
     },
@@ -16,7 +11,7 @@
 
     // Add the User Agent to the <html>
     // will be used for IE10 detection (Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0))
-    var doc = document.documentElement;
+    let doc = document.documentElement;
     doc.setAttribute('data-useragent', navigator.userAgent);
 
     // svg fallback
@@ -27,7 +22,7 @@
 
    /* Preloader
     * ----------------------------------------------------- */
-    var clPreloader = function() {
+    let clPreloader = function() {
         
         $("html").addClass('cl-preload');
 
@@ -52,7 +47,7 @@
 
    /* mediaelement
     * ------------------------------------------------------ */
-    var clMediaElement = function() {
+    let clMediaElement = function() {
 
         $('audio').mediaelementplayer({
             pluginPath: 'https://cdnjs.com/libraries/mediaelement/',
@@ -64,7 +59,7 @@
 
    /* FitVids
     ------------------------------------------------------ */ 
-    var clFitVids = function() {
+    let clFitVids = function() {
         $(".video-container").fitVids();
     };
 
@@ -72,7 +67,7 @@
 
    /* pretty print
     * -------------------------------------------------- */ 
-    var clPrettyPrint = function() {
+    let clPrettyPrint = function() {
         $('pre').addClass('prettyprint');
         $( document ).ready(function() {
             prettyPrint();
@@ -83,9 +78,9 @@
 
    /* search
     * ------------------------------------------------------ */
-    var clSearch = function() {
+    let clSearch = function() {
         
-        var searchWrap = $('.header__search'),
+        let searchWrap = $('.header__search'),
             searchField = searchWrap.find('.search-field'),
             closeSearch = searchWrap.find('.header__overlay-close'),
             searchTrigger = $('.header__search-trigger'),
@@ -97,7 +92,7 @@
             e.preventDefault();
             e.stopPropagation();
         
-            var $this = $(this);
+            let $this = $(this);
         
             siteBody.addClass('search-is-visible');
             setTimeout(function(){
@@ -108,7 +103,7 @@
 
         closeSearch.on('click', function(e) {
 
-            var $this = $(this);
+            let $this = $(this);
         
             e.stopPropagation(); 
         
@@ -130,22 +125,22 @@
             e.stopPropagation();
         });
             
-        searchField.attr({placeholder: 'Type Keywords', autocomplete: 'off'});
+        searchField.attr({placeholder: 'Espace, musique ...', autocomplete: 'off'});
     
     };
 
 
    /* Mobile Menu
     * ---------------------------------------------------- */ 
-    var clMobileMenu = function() {
+    let clMobileMenu = function() {
 
-        var navWrap = $('.header__nav-wrap'),
+        let navWrap = $('.header__nav-wrap'),
             closeNavWrap = navWrap.find('.header__overlay-close'),
             menuToggle = $('.header__toggle-menu'),
             siteBody = $('body');
         
         menuToggle.on('click', function(e) {
-            var $this = $(this);
+            let $this = $(this);
 
             e.preventDefault();
             e.stopPropagation();
@@ -154,7 +149,7 @@
 
         closeNavWrap.on('click', function(e) {
             
-            var $this = $(this);
+            let $this = $(this);
             
             e.preventDefault();
             e.stopPropagation();
@@ -190,9 +185,9 @@
 
    /* Masonry
     * ---------------------------------------------------- */ 
-    var clMasonryFolio = function () {
+    let clMasonryFolio = function () {
         
-        var containerBricks = $('.masonry');
+        let containerBricks = $('.masonry');
 
         containerBricks.imagesLoaded(function () {
             containerBricks.masonry({
@@ -212,9 +207,9 @@
 
    /* slick slider
     * ------------------------------------------------------ */
-    var clSlickSlider = function() {
+    let clSlickSlider = function() {
 
-        var $gallery = $('.slider__slides').slick({
+        let $gallery = $('.slider__slides').slick({
             arrows: false,
             dots: true,
             infinite: true,
@@ -235,10 +230,10 @@
 
    /* Smooth Scrolling
     * ------------------------------------------------------ */
-    var clSmoothScroll = function() {
+    let clSmoothScroll = function() {
         
         $('.smoothscroll').on('click', function (e) {
-            var target = this.hash,
+            let target = this.hash,
             $target    = $(target);
             
                 e.preventDefault();
@@ -262,14 +257,14 @@
 
    /* Placeholder Plugin Settings
     * ------------------------------------------------------ */
-    var clPlaceholder = function() {
+    let clPlaceholder = function() {
         $('input, textarea, select').placeholder();  
     };
 
 
    /* Alert Boxes
     * ------------------------------------------------------ */
-    var clAlertBoxes = function() {
+    let clAlertBoxes = function() {
 
         $('.alert-box').on('click', '.alert-box__close', function() {
             $(this).parent().fadeOut(500);
@@ -280,7 +275,7 @@
 
    /* Animate On Scroll
     * ------------------------------------------------------ */
-    var clAOS = function() {
+    let clAOS = function() {
         
         AOS.init( {
             offset: -400,
@@ -296,7 +291,7 @@
 
    /* AjaxChimp
     * ------------------------------------------------------ */
-    var clAjaxChimp = function() {
+    let clAjaxChimp = function() {
         
         $('#mc-form').ajaxChimp({
             language: 'es',
@@ -329,9 +324,9 @@
 
    /* Back to Top
     * ------------------------------------------------------ */
-    var clBackToTop = function() {
+    let clBackToTop = function() {
         
-        var pxShow      = 500,
+        let pxShow      = 500,
             goTopButton = $(".go-top")
 
         // Show or hide the button
@@ -351,10 +346,10 @@
     * ------------------------------------------------------ */
 
     // add custom buttons for the zoom-in/zoom-out on the map
-    var clCustomZoomControl = function(controlDiv, map) {
+    let clCustomZoomControl = function(controlDiv, map) {
             
         // grap the zoom elements from the DOM and insert them in the map 
-        var controlUIzoomIn= document.getElementById('map-zoom-in'),
+        let controlUIzoomIn= document.getElementById('map-zoom-in'),
                 controlUIzoomOut= document.getElementById('map-zoom-out');
 
         controlDiv.appendChild(controlUIzoomIn);
@@ -370,13 +365,13 @@
             
     };
 
-	var clGoogleMap = function() { 
+	let clGoogleMap = function() { 
 
         if (typeof google === 'object' && typeof google.maps === 'object') {
 
             // 37.422424, -122.085661
 
-            var latitude = 37.422424,
+            let latitude = 37.422424,
                 longitude = -122.085661,
                 map_zoom = 14,
                 main_color = '#0054a5',
@@ -396,7 +391,7 @@
             }
 
             // map style
-            var style = [ 
+            let style = [ 
                 {
                     // set saturation for the labels on the map
                     elementType: "labels",
@@ -567,7 +562,7 @@
             ];
                 
             // map options
-            var map_options = {
+            let map_options = {
 
                 center: new google.maps.LatLng(latitude, longitude),
                 zoom: 14,
@@ -582,10 +577,10 @@
                 };
 
             // inizialize the map
-            var map = new google.maps.Map(document.getElementById('map-container'), map_options);
+            let map = new google.maps.Map(document.getElementById('map-container'), map_options);
 
             // add a custom marker to the map				
-            var marker = new google.maps.Marker({
+            let marker = new google.maps.Marker({
 
                     position: new google.maps.LatLng(latitude, longitude),
                     map: map,
@@ -594,8 +589,8 @@
                     
                 });
             
-            var zoomControlDiv = document.createElement('div');
-            var zoomControl = new clCustomZoomControl(zoomControlDiv, map);
+            let zoomControlDiv = document.createElement('div');
+            let zoomControl = new clCustomZoomControl(zoomControlDiv, map);
 
             // insert the zoom div on the top right of the map
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(zoomControlDiv);
