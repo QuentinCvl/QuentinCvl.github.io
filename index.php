@@ -1,17 +1,17 @@
 <?php
 include_once("vendor/autoload.php");
 
-
-include_once("header.php");
+require_once('controller.php');
 
 if (isset ($_GET['page']) && file_exists($_GET['page'] . '.php')) {
-    require_once($_GET['page'] . '.php');
+  if($_GET['page'] === "home") {
+    listPosts();
+  }
 } elseif (isset ($_GET['page']) && file_exists($_GET['page'] . '.html')) {
   require_once($_GET['page'] . '.html');
 } elseif (!isset($_GET['page'])) {
-    require_once("home.php");
+  listPosts();
 } else {
-    require_once("404.html");
+  require_once("404.html");
 }
 
-include_once("footer.php");

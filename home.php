@@ -1,63 +1,8 @@
-<div class="pageheader-content row">
-    <div class="col-full">
-        <div class="featured">
-            <div class="featured__column featured__column--big">
-                <div class="entry" style="background-image:url('images/thumbs/featured/featured-guitarman.jpg');">
-                    <div class="entry__content">
-                        <span class="entry__category"><a href="#0">Music</a></span>
-                        <h1><a href="#0" title="">What Your Music Preference Says About You and Your Personality.</a></h1>
-                        <div class="entry__info">
-                            <a href="#0" class="entry__profile-pic">
-                                <img class="avatar" src="images/avatars/user-03.jpg" alt="">
-                            </a>
-                            <ul class="entry__meta">
-                                <li><a href="#0">John Doe</a></li>
-                                <li>December 29, 2017</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured__column featured__column--small">
-                <div class="entry" style="background-image:url('images/thumbs/featured/featured-watch.jpg');">
-                    <div class="entry__content">
-                        <span class="entry__category"><a href="#0">Management</a></span>
-                        <h1><a href="#0" title="">The Pomodoro Technique Really Works.</a></h1>
-                        <div class="entry__info">
-                            <a href="#0" class="entry__profile-pic">
-                                <img class="avatar" src="images/avatars/user-03.jpg" alt="">
-                            </a>
-                            <ul class="entry__meta">
-                                <li><a href="#0">John Doe</a></li>
-                                <li>December 27, 2017</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="entry" style="background-image:url('images/thumbs/featured/featured-beetle.jpg');">
-                    <div class="entry__content">
-                        <span class="entry__category"><a href="#0">LifeStyle</a></span>
-                        <h1><a href="#0" title="">Throwback To The Good Old Days.</a></h1>
-                        <div class="entry__info">
-                            <a href="#0" class="entry__profile-pic">
-                                <img class="avatar" src="images/avatars/user-03.jpg" alt="">
-                            </a>
-                            <ul class="entry__meta">
-                                <li><a href="#0">John Doe</a></li>
-                                <li>December 21, 2017</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
-
-<section class="s-content">
+<?php
+$title = "Electicism. - Accueil";
+ob_start();
+?>
+  <section class="s-content">
     <div class="row masonry-wrap">
         <div class="masonry">
             <div class="grid-sizer"></div>
@@ -540,18 +485,22 @@
         <div class="col-full tags">
             <h3>Tags</h3>
             <div class="tagcloud">
-                <a href="#0">Salad</a>
-                <a href="#0">Recipe</a>
-                <a href="#0">Places</a>
-                <a href="#0">Tips</a>
-                <a href="#0">Friends</a>
-                <a href="#0">Travel</a>
-                <a href="#0">Exercise</a>
-                <a href="#0">Reading</a>
-                <a href="#0">Running</a>
-                <a href="#0">Self-Help</a>
-                <a href="#0">Vacation</a>
+                <a href="#0">Lieux</a>
+                <a href="#0">Planete</a>
+                <a href="#0">étoile</a>
+                <a href="#0">Capitale</a>
+                <a href="#0">Montagne</a>
+                <a href="#0">Rock</a>
+                <a href="#0">Alimentation</a>
+                <a href="#0">Sport</a>
+                <a href="#0">Covid-19</a>
+                <a href="#0">Festival</a>
+                <a href="#0">Grèce</a>
+                <a href="#0">Satelite</a>
+                <a href="#0">Concert</a>
             </div>
         </div>
     </div>
 </section>
+<?php $content = ob_get_clean();
+require 'template/general.php';
