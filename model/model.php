@@ -1,20 +1,14 @@
 <?php
-function bddConnection() {
-  try {
-    return $dbh = new \PDO("mysql:host=localhost;dbname=phpBlog", 'quentincvl', 'Mavie190716%');
-  }
-  catch(Exception $e) {
-    die('Erreur : '.$e->getMessage());
-  }
-}
 
 function getPosts() {
-  $dbh = bddConnection();
+  $BDD = new BDD();
+  $dbh = $BDD->getConnection();
   return $req = $dbh->query("SELECT * FROM post ORDER BY createdThe DESC");
 }
 
 function getPost($postId) {
-  $dbh = bddConnection();
+  $BDD = new BDD();
+  $dbh = $BDD->getConnection();
   $req = $dbh->query("SELECT * FROM post WHERE id = '$postId'");
   return $post = $req->fetch(PDO::FETCH_ASSOC);
 }

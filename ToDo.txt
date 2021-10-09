@@ -2,4 +2,7 @@
     Les utilisateur ne créé pas de compte, donc changer tout ce qui comprend userID pour les commentaire
 - Mettre en place le MVC
 - Faire le template Twig
-- Faire la page de connection ( en url pas en lien ) + htacces pour proteger la page 
+- Faire la page de connection ( en url pas en lien ) + htacces pour proteger la page
+
+- Model :
+    > Faire la récupération des données dans une classe BDD et appeler la classe + fonction correspondante
