@@ -24,7 +24,9 @@ body {
    padding: 0;
 }
 
-
+.full-height {
+   height: 100%;
+}
 /* ------------------------------------------------------------------- 
  * ## links
  * ------------------------------------------------------------------- */
@@ -672,12 +674,12 @@ select:focus {
 
 label, legend {
    font-family: "metropolis-regular", sans-serif;
-   font-size: 1.4rem;
+   font-size: 1.8rem;
    font-weight: bold;
    margin-bottom: .9rem;
    line-height: 1.714;
-   color: #000000;
-   display: block;
+   color: #656565;
+   text-align: center;
 }
 
 input[type="checkbox"], input[type="radio"] {
@@ -4135,10 +4137,19 @@ footer h4::after {
    background-color: #0054a5;
 }
 
-/* contact form
+/* form
  * ----------------------------------------------- */
 #cForm {
    margin-top: 3.6rem;
 }
-
+#loginForm {
+   position: absolute;
+   top: 30%;
+   width: 40%;
+}
+@media all and (max-width: 768px){
+   #loginForm {
+      width: 70%;
+   }
+}
 /*# sourceMappingURL=main.css.map */

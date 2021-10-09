@@ -22,7 +22,7 @@
   <header class="header">
     <div class="header__content row">
       <div class="header__logo">
-        <a class="logo" href="">
+        <a class="logo" href="index.php">
           <img src="public/images/Eclecticism-nobg.png" alt="Homepage">
         </a>
       </div>
@@ -41,7 +41,7 @@
         </li>
       </ul>
 
-      <a class="header__search-trigger" href="#"></a>
+      <!--<a class="header__search-trigger" href="#"></a>
 
       <div class="header__search">
         <form role="search" method="get" class="header__search-form" action="#">
@@ -53,7 +53,7 @@
           <input type="submit" class="search-submit" value="Search">
         </form>
         <a href="#" title="Close Search" class="header__overlay-close">Close</a>
-      </div>
+      </div>-->
 
 
       <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
