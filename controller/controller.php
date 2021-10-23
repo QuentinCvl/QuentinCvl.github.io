@@ -6,7 +6,7 @@ require 'model/model.php';
 function listPosts() {
   $posts = getPosts();
 
-  require_once('view/homesave.php');
+  require_once('view/home.php');
 }
 
 function post() {
