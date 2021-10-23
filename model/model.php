@@ -3,7 +3,8 @@
 function getPosts() {
   $BDD = new BDD();
   $dbh = $BDD->getConnection();
-  return $req = $dbh->query("SELECT * FROM post ORDER BY createdThe DESC");
+  $req = $dbh->query("SELECT * FROM post ORDER BY createdThe DESC");
+  return $data = $req->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getPost($postId) {
