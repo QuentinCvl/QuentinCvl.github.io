@@ -1,8 +1,9 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html class="no-js" lang="fr">
 <head>
   <meta charset="utf-8">
-  <title><?= $title ?></title>
+  <title><?php echo $title ?? 'Eclecticism.' ?></title>
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,7 +19,41 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body id="top">
-<section class="s-pageheader <?php if ($_GET['page'] === "home" || !isset($_GET['page'])) echo "s-pageheader--home" ?>">
+<?php if(isset($_SESSION) && !empty($_SESSION)) : ?>
+<div id="adminbar">
+  <ul class="float-left">
+    <span>Coucou</span>
+  </ul>
+  <ul class="float-right ab-top-secondary">
+    <li id="adminbar-myaccount" class="menupop with-avatar float-right">
+      <a class="ab-item" aria-haspopup="true" href="admin/index.php?profile.php">
+        <span>Bonjour, <?php echo $_SESSION['username'] ?></span>
+        <img src="public/images/avatars/user-05.jpg"
+             class="avatar avatar-26 photo" loading="lazy" alt="">
+      </a>
+      <div class="ab-sub-wrapper">
+        <ul id="adminbar-useractions" class="ab-submenu">
+          <li id="adminbar-userinfo">
+            <a class="ab-item" tabindex="-1" href="https://gossplay.fr/wp-admin/profile.php">
+              <img src="public/images/avatars/user-05.jpg"
+                   class="avatar avatar-64 photo" loading="lazy" alt="">
+              <span class="display-name"><?php echo $_SESSION['username'] ?></span>
+            </a>
+          </li>
+          <li id="wp-admin-bar-edit-profile">
+            <a class="ab-item" href="https://gossplay.fr/wp-admin/profile.php">Modifier le profil</a>
+          </li>
+          <li id="wp-admin-bar-logout">
+            <a class="ab-item"
+               href="https://gossplay.fr/wp-login.php?action=logout&amp;_wpnonce=bd6286afef">Se déconnecter</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
+<?php endif; ?>
+<section class="s-pageheader <?php if (!isset($_GET['page']) || $_GET['page'] === "home") echo "s-pageheader--home" ?>">
   <header class="header">
     <div class="header__content row">
       <div class="header__logo">
@@ -61,7 +96,9 @@
       <nav class="header__nav-wrap">
         <h2 class="header__nav-heading h6">Navigation</h2>
         <ul class="header__nav">
-          <li <?php if(!isset($_GET['page']) || $_GET['page'] === 'home') echo 'class="current"'?>><a href="index.php" title="">Accueil</a></li>
+          <li <?php if (!isset($_GET['page']) || $_GET['page'] === 'home') echo 'class="current"' ?>>
+            <a href="index.php" title="">Accueil</a>
+          </li>
           <li class="has-children">
             <a href="#0" title="">Categories</a>
             <ul class="sub-menu">
@@ -88,7 +125,7 @@
       </nav>
     </div>
   </header>
-  <?php if ($_GET['page'] === "home" || !isset($_GET['page'])) : ?>
+  <?php if (!isset($_GET['page']) || $_GET['page'] === "home") : ?>
     <div class="pageheader-content row">
       <div class="col-full">
         <div class="featured">
@@ -345,7 +382,7 @@
 <script src="public/js/jquery-3.2.1.min.js"></script>
 <script src="public/js/plugins.js"></script>
 <script src="public/js/main.js"></script>
-<?php if($_GET['page'] === "contact") : ?>
+<?php if(isset($_GET['page']) && $_GET['page'] === "contact") : ?>
   <script src="https://maps.googleapis.com/maps/api/js"></script>
 <?php endif; ?>
 </body>

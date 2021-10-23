@@ -129,9 +129,19 @@
     
     };
 
+    /* Header AdminBar
+    * ---------------------------------------------------- */
+    $('#adminbar-myaccount').on({
+        mouseenter : function () {
+            $(this).addClass('hover');
+        },
+        mouseleave : function () {
+            $(this).removeClass('hover');
 
-   /* Mobile Menu
-    * ---------------------------------------------------- */ 
+        }
+    })
+    /* Mobile Menu
+     * ---------------------------------------------------- */
     let clMobileMenu = function() {
 
         let navWrap = $('.header__nav-wrap'),

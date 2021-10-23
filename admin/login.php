@@ -19,30 +19,43 @@
 </head>
 <body id="top">
 <section class="s-pageheader full-height">
-  <header class="header">
+  <header class="header" style="z-index: 1">
     <div class="header__content row">
       <div class="header__logo">
-        <a class="logo" href="">
+        <a class="logo" href="../index.php">
           <img src="../public/images/Eclecticism-nobg.png" alt="Homepage">
         </a>
       </div>
     </div>
   </header>
-  <div style="width: 100%; height: 100%; display: flex; justify-content: center; position: relative;">
-    <form name="loginForm" id="loginForm" method="post" action="">
+  <div class="loginFormContainer">
+    <form name="loginForm" id="loginForm" method="post" action="index.php">
       <fieldset>
         <legend>Connexion Administrateur</legend>
 
         <div class="form-field">
-          <input type="text" class="full-width" id="loginID" name="loginID" placeholder="Identifiant">
+          <input type="text" class="full-width" id="loginID" name="loginID" placeholder="Identifiant"
+          value="<?php if(isset($_POST['loginID'])) echo $_POST['loginID'] ?>" autocomplete="off" required>
         </div>
 
         <div class="form-field">
-          <input type="text" class="full-width" id="loginPSWD" name="loginPSWD" placeholder="Mot de passe">
+          <input type="password" class="full-width" id="loginPSWD" name="loginPSWD" placeholder="Mot de passe"
+                 autocomplete="off" required>
         </div>
 
         <button type="submit" class="submit btn btn--primary full-width">Connexion</button>
       </fieldset>
+      <?php
+        if(isset($_POST['loginID']) && isset($_POST['loginPSWD'])) {
+          $login = new User($_POST['loginID'], $_POST['loginPSWD']);
+          $login = $login->login();
+          if($login) {
+            header("Location: ../index.php");
+          } else {
+            echo "<p style='color: red'>Connexion échouée</p>";
+          }
+        }
+      ?>
     </form>
   </div>
 </section>
