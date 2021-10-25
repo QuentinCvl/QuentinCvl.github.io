@@ -6,6 +6,8 @@ require_once('controller/controller.php');
 if (isset ($_GET['page'])) {
   if($_GET['page'] === "home") {
     listPosts();
+  } elseif($_GET['page'] === "post") {
+    post();
   } elseif($_GET['page'] === "contact") {
     contact();
   }

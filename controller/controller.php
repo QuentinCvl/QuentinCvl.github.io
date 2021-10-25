@@ -13,7 +13,7 @@ function post() {
   $post = getPost($_GET['id']);
   // get comment
 
-  //require_once('../view/postView.php');
+  require_once('view/single-standard.php');
 }
 
 function contact() {
