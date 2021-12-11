@@ -1,6 +1,10 @@
 <?php
 require 'model/adminModel.php';
 
+function adminHome()
+{
+  require_once('view/home.php');
+}
 
 function login($id, $pswd)
 {
@@ -11,11 +15,6 @@ function login($id, $pswd)
     header("Location: index.php?page=login&error=1");
   }
   exit();
-}
-
-function adminHome()
-{
-  require_once('view/home.php');
 }
 
 function addPost($title, $img, $content)
