@@ -6,6 +6,7 @@ ob_start();
     <div class="row masonry-wrap">
       <div class="masonry">
         <div class="grid-sizer"></div>
+
         <article class="masonry__brick entry format-standard" data-aos="fade-up">
           <div class="entry__thumb">
             <a href="single-standard.html" class="entry__thumb-link">
