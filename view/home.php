@@ -11,7 +11,7 @@ ob_start();
           <article class="masonry__brick entry format-standard" data-aos="fade-up">
             <div class="entry__thumb">
               <a href="index.php?page=post&id=<?php echo $post['id'] ?>" class="entry__thumb-link">
-                <img src="public/images/<?php echo $post['thumbnail'] ?>" alt="">
+                <img src="public/images/post/<?php echo $post['thumbnail'] ?>" alt="">
               </a>
             </div>
 
@@ -36,12 +36,12 @@ ob_start();
                   echo $extract . '...';
                   ?></p>
               </div>
-              <div class="entry__meta">
-            <span class="entry__meta-links">
-              <a href="category.html">Design</a>
-              <a href="category.html">Photography</a>
-            </span>
-              </div>
+              <!--<div class="entry__meta">
+                <span class="entry__meta-links">
+                  <a href="category.html">Design</a>
+                  <a href="category.html">Photography</a>
+                </span>
+              </div>-->
             </div>
           </article>
         <?php endforeach; ?>

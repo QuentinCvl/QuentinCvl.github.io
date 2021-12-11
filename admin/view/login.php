@@ -29,7 +29,7 @@
     </div>
   </header>
   <div class="loginFormContainer">
-    <form name="loginForm" id="loginForm" method="post" action="index.php">
+    <form name="loginForm" id="loginForm" method="post" action="index.php?page=login">
       <fieldset>
         <legend>Connexion Administrateur</legend>
 
@@ -43,19 +43,9 @@
                  autocomplete="off" required>
         </div>
 
-        <button type="submit" class="submit btn btn--primary full-width">Connexion</button>
+        <button type="submit" class="submit btn btn--primary full-width" name="loginBtn">Connexion</button>
       </fieldset>
-      <?php
-        if(isset($_POST['loginID']) && isset($_POST['loginPSWD'])) {
-          $login = new User($_POST['loginID'], $_POST['loginPSWD']);
-          $login = $login->login();
-          if($login) {
-            header("Location: ../index.php");
-          } else {
-            echo "<p style='color: red'>Connexion échouée</p>";
-          }
-        }
-      ?>
+      <?php if(isset($_GET['error'])) echo "<p style='color: red'>Connexion échouée</p>"; ?>
     </form>
   </div>
 </section>

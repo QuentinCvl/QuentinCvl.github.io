@@ -1686,7 +1686,13 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     padding: 0 10px;
     margin: 0;
 }
-
+#adminbar li {
+    float: left;
+}
+#adminbar i {
+    margin: 5px;
+    font-size: 18px;
+}
 #adminbar #adminbar-myaccount.with-avatar>a img {
     width: auto;
     height: 16px;
@@ -4289,6 +4295,35 @@ footer h4::after {
     width: 40%;
 }
 
+.adminForm {
+    margin: auto;
+    width: 60%;
+}
+
+.adminForm h2, .adminForm h4 {
+    font-family: "metropolis-regular", sans-serif;
+    font-weight: bold;
+    line-height: 1.714;
+    color: #656565;
+}
+
+.adminForm h2 {
+    font-size: 2.4rem;
+    text-align: center;
+}
+
+.adminForm h4 {
+    font-size: 1.8rem;
+    margin-bottom: 0.9rem;
+}
+.adminForm .annotation {
+    margin-top: -3rem;
+    font-style: italic;
+    opacity: 0.4;
+}
+.adminFormImage {
+    text-align: center;
+}
 @media all and (max-width: 768px) {
     #loginForm {
         width: 70%;

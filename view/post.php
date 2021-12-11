@@ -1,4 +1,8 @@
 <?php
+if(!isset($post) || !is_array($post)) {
+  header('Location: index.php');
+  exit();
+}
 $title = "Electicism. - Post";
 ob_start();
 ?>
@@ -23,28 +27,26 @@ ob_start();
 
       <div class="s-content__media col-full">
         <div class="s-content__post-thumb" style="text-align: center">
-          <img src="public/images/<?php echo $post['thumbnail'] ?>"
+          <img src="public/images/post/<?php echo $post['thumbnail'] ?>"
                sizes="(max-width: 2000px) 100vw, 2000px" alt="">
         </div>
       </div>
 
       <div class="col-full s-content__main">
 
-        <p class="lead">Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint
-          sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor
-          dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor
-          veniam consequat non laborum adipisicing aliqua ea nisi sint.</p>
-
-        <p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est
-          eu
-          exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure
-          velit
-          commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat
-          non
-          laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit
-          minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi
-          non ut enim aliqua laborum mollit quis nostrud sed sed.
-        </p>
+        <?php
+        $content = explode("\n", $post['content']);
+        foreach($content as $key => $ctt) {
+          if(trim($ctt)) {
+            if($key === 0) { ?>
+              <p class="lead"><?php echo $ctt?></p>
+            <?php } else { ?>
+              <p><?php echo $ctt?></p>
+            <?php }
+            $array[] = $ctt;
+          }
+        }
+        ?>
 
         <!-- list of post's tags -->
         <p class="s-content__tags">

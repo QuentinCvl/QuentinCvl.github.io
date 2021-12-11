@@ -1,7 +1,7 @@
 <?php
 require 'model/model.php';
 
-// Each function is a root. She call the specific model fonction and the view
+// Each function is a root. She's calling the specific model function and the view
 
 function listPosts() {
   $posts = getPosts();
@@ -13,7 +13,7 @@ function post() {
   $post = getPost($_GET['id']);
   // get comment
 
-  require_once('view/single-standard.php');
+  require_once('view/post.php');
 }
 
 function contact() {

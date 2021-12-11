@@ -10,6 +10,10 @@ if (isset ($_GET['page'])) {
     post();
   } elseif($_GET['page'] === "contact") {
     contact();
+  } elseif($_GET['page'] === "disconnect") {
+    session_start();
+    session_destroy();
+    header('Location: admin/');
   }
 } elseif (isset ($_GET['page']) && file_exists($_GET['page'] . '.html')) {
   require_once($_GET['page'] . '.html');
