@@ -87,9 +87,17 @@ class Post
   }
 
   public function deletePost($id) : bool {
+    $folder = "../public/images/post/";
+    $extension = ["jpeg", "jpg", "png", "gif"];
+    foreach($extension as $ext) {
+      if(file_exists($folder.$id.'.'.$ext)) {
+        unlink($folder.$id.'.'.$ext);
+        break;
+      }
+    }
     $req = $this->dbh->prepare("DELETE FROM post WHERE id = :id");
     $req->bindParam(':id', $id);
     $req->execute();
-    return $req->rowCount() ? true : false;
+    return (bool)$req->rowCount();
   }
 }
