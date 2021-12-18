@@ -18,10 +18,13 @@ class Post
   /**
    * Create Post function
    *
-   * @return bool
+   * @param $title String Tile of the new publication
+   * @param $img Array Thumbnail image
+   * @param $content String Content
+   * @return string|void Return the new post id if success, void if not.
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
-  public function newPost($title, $img, $content)
+  public function newPost(string $title, array $img, string $content)
   {
     // Check if image is valid
     $ext = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
@@ -54,7 +57,14 @@ class Post
     return $lastID;
   }
 
-  public function getData($id)
+  /**
+   * Get data of a specific post
+   *
+   * @param $id String ID of the post
+   * @return array|false Return the post data if success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function getData(string $id): array
   {
     $req = $this->dbh->prepare("SELECT title, thumbnail, content FROM post WHERE id = :id");
     $req->bindParam(':id', $id);
@@ -62,7 +72,15 @@ class Post
     return $req->fetch(PDO::FETCH_ASSOC);
   }
 
-  public function updatePost($data, $img = false): int
+  /**
+   * Update a specific post
+   *
+   * @param $data array Data of the post (id, title, content)
+   * @param $img array [Optional] The new thumbnail, if it has been changed.
+   * @return int|false Return the post id if success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function updatePost(array $data, $img = false): int
   {
     if ($img && $img['size'] > 0 && $img['error'] == 0) {
       $ext = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
@@ -82,11 +100,17 @@ class Post
     $req->bindParam(':title', $data['title']);
     $req->bindParam(':content', $data['content']);
     $req->bindParam(':id', $data['id']);
-    $req->execute();
-    return $data['id'];
+    return $req->execute() ? (int)$data['id'] : false;
   }
 
-  public function deletePost($id) : bool {
+  /**
+   * Delete a specific post and this thumbnail
+   *
+   * @param $id string Data of the post (id, title, content)
+   * @return bool Return the true on success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function deletePost(string $id): bool {
     $folder = "../public/images/post/";
     $extension = ["jpeg", "jpg", "png", "gif"];
     foreach($extension as $ext) {
