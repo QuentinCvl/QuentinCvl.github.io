@@ -1,5 +1,5 @@
 <?php
-if(!isset($post) || !is_array($post)) {
+if (!isset($post) || !is_array($post)) {
   header('Location: index.php');
   exit();
 }
@@ -17,11 +17,11 @@ ob_start();
             setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
             echo strftime("%d %B %Y", strtotime($post['createdThe']));
             ?></li>
-          <li class="cat">
+          <!--<li class="cat">
             Catégorie :
             <a href="#0">Lifestyle</a>
             <a href="#0">Travel</a>
-          </li>
+          </li>-->
         </ul>
       </div>
 
@@ -36,12 +36,12 @@ ob_start();
 
         <?php
         $content = explode("\n", $post['content']);
-        foreach($content as $key => $ctt) {
-          if(trim($ctt)) {
-            if($key === 0) { ?>
-              <p class="lead"><?php echo $ctt?></p>
+        foreach ($content as $key => $ctt) {
+          if (trim($ctt)) {
+            if ($key === 0) { ?>
+              <p class="lead"><?php echo $ctt ?></p>
             <?php } else { ?>
-              <p><?php echo $ctt?></p>
+              <p><?php echo $ctt ?></p>
             <?php }
             $array[] = $ctt;
           }
@@ -49,15 +49,15 @@ ob_start();
         ?>
 
         <!-- list of post's tags -->
-        <p class="s-content__tags">
+        <!--<p class="s-content__tags">
           <span>Les Tags</span>
           <span class="s-content__tag-list">
-          <a href="#0">orci</a>
-          <a href="#0">lectus</a>
-          <a href="#0">varius</a>
-          <a href="#0">turpis</a>
-        </span>
-        </p>
+            <a href="#0">orci</a>
+            <a href="#0">lectus</a>
+            <a href="#0">varius</a>
+            <a href="#0">turpis</a>
+          </span>
+        </p>-->
 
         <!-- Author information -->
         <div class="s-content__author">
@@ -83,46 +83,46 @@ ob_start();
       </div>
     </article>
 
-
+    <?php
+    echo '<pre>';
+    print_r($comment);
+    echo '</pre>';
+    ?>
     <!-- list of comments -->
     <div class="comments-wrap">
       <div id="comments" class="row">
         <div class="col-full">
-          <!-- Comments count -->
-          <h3 class="h2">5 Commentaires</h3>
+          <h3 class="h2"><?php
+            $count = count($comment);
+            echo $count > 1 ? "$count Commentaires" : "$count Commentaire"?>
+          </h3>
 
           <!-- commentlist -->
           <ol class="commentlist">
+            <?php foreach($comment as $com) : ?>
+              <li class="depth-1 comment">
+                <div class="comment__content">
+                  <div class="comment__info">
+                    <cite><?php echo $com['username'] ?></cite>
+                    <div class="comment__meta">
+                      <time class="comment__time"><?php
+                        echo strftime("%d %B %Y", strtotime($com['publishedThe']))
+                        ?>
+                      </time>
+                    </div>
+                  </div>
 
-            <li class="depth-1 comment">
-              <div class="comment__avatar">
-                <img width="50" height="50" class="avatar" src="public/images/avatars/user-01.jpg" alt="">
-              </div>
-
-              <div class="comment__content">
-                <div class="comment__info">
-                  <cite>Itachi Uchiha</cite>
-                  <div class="comment__meta">
-                    <time class="comment__time">Dec 16, 2017 @ 23:05</time>
-                    <a class="reply" href="#0">Reply</a>
+                  <div class="comment__text">
+                    <p><?php echo $com['message'] ?></p>
                   </div>
                 </div>
-
-                <div class="comment__text">
-                  <p>Adhuc quaerendum est ne, vis ut harum tantas noluisse, id suas iisque mei. Nec te inani ponderum
-                    vulputate,
-                    facilisi expetenda has et. Iudico dictas scriptorem an vim, ei alia mentitum est, ne has voluptua
-                    praesent.</p>
-                </div>
-              </div>
-            </li>
+              </li>
+            <?php endforeach; ?>
           </ol>
 
-
-          <!-- respond
+          <!-- Comment form
           ================================================== -->
           <div class="respond">
-
             <h3 class="h2">Ajouter un commentaire</h3>
 
             <form name="contactForm" id="contactForm" method="post" action="">

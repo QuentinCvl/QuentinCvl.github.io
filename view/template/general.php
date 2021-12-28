@@ -76,7 +76,9 @@
           <img src="public/images/Eclecticism-nobg.png" alt="Homepage">
         </a>
       </div>
+      <?php if(!isset($_SESSION)) : ?>
       <a style="float: right" href="admin/">a</a>
+      <?php endif; ?>
       <ul class="header__social">
         <li>
           <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
@@ -92,21 +94,6 @@
         </li>
       </ul>
 
-      <!--<a class="header__search-trigger" href="#"></a>
-
-      <div class="header__search">
-        <form role="search" method="get" class="header__search-form" action="#">
-          <label>
-            <span class="hide-content">Que cherchez vous ?</span>
-            <input type="search" class="search-field" placeholder="Espace, musique ..." value="" name="s"
-                   title="Que cherchez vous ?" autocomplete="off">
-          </label>
-          <input type="submit" class="search-submit" value="Search">
-        </form>
-        <a href="#" title="Close Search" class="header__overlay-close">Close</a>
-      </div>-->
-
-
       <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
 
       <nav class="header__nav-wrap">
@@ -115,7 +102,7 @@
           <li <?php if (!isset($_GET['page']) || $_GET['page'] === 'home') echo 'class="current"' ?>>
             <a href="index.php" title="">Accueil</a>
           </li>
-          <li class="has-children">
+          <!--<li class="has-children">
             <a href="#0" title="">Categories</a>
             <ul class="sub-menu">
               <li><a href="index.php?page=category">Espace</a></li>
@@ -123,18 +110,8 @@
               <li><a href="index.php?page=category">Santé</a></li>
               <li><a href="index.php?page=category">Voyage</a></li>
             </ul>
-          </li>
-          <li class="has-children">
-            <a href="#0" title="">Blog</a>
-            <ul class="sub-menu">
-              <li><a href="single-video.html">Video Post</a></li>
-              <li><a href="single-audio.html">Audio Post</a></li>
-              <li><a href="single-gallery.html">Gallery Post</a></li>
-              <li><a href="single-standard.html">Standard Post</a></li>
-            </ul>
-          </li>
-          <li><a href="index.php?page=style-guide" title="">Styles</a></li>
-          <li><a href="index.php?page=about" title="">About</a></li>
+          </li>-->
+          <li><a href="index.php?page=about" title="">à propos</a></li>
           <li><a href="index.php?page=contact" title="">Contact</a></li>
         </ul>
         <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Fermer</a>
@@ -148,16 +125,17 @@
           <div class="featured__column featured__column--big">
             <div class="entry" style="background-image:url('public/images/thumbs/featured/featured-guitarman.jpg');">
               <div class="entry__content">
-                <span class="entry__category"><a href="#0">Musique</a></span>
-                <h1><a href="#0" title="">Ce que votre préférence musicale dit de vous et de votre personnalité.</a>
+                <!--<span class="entry__category"><a href="#0">Musique</a></span>-->
+                <h1>
+                  <a href="index.php?page=post&id=1" title="">Ce que votre préférence musicale dit de vous et de votre personnalité.</a>
                 </h1>
                 <div class="entry__info">
-                  <a href="#0" class="entry__profile-pic">
+                  <a href="index.php?page=post&id=1" class="entry__profile-pic">
                     <img class="avatar" src="public/images/avatars/user-03.jpg" alt="">
                   </a>
                   <ul class="entry__meta">
-                    <li><a href="#0">Eclecticism.</a></li>
-                    <li>18 Septembre 2021</li>
+                    <li><a href="index.php?page=post&id=1">Eclecticism.</a></li>
+                    <li>17 Octobre 2021</li>
                   </ul>
                 </div>
               </div>
@@ -167,15 +145,14 @@
           <div class="featured__column featured__column--small">
             <div class="entry" style="background-image:url('public/images/thumbs/featured/featured-watch.jpg');">
               <div class="entry__content">
-                <span class="entry__category"><a href="#0">Management</a></span>
-                <h1><a href="#0" title="">The Pomodoro Technique Really Works.</a></h1>
+                <h1><a href="index.php?page=post&id=2" title="">Montre connecté, les nouveautés</a></h1>
                 <div class="entry__info">
-                  <a href="#0" class="entry__profile-pic">
+                  <a href="index.php?page=post&id=2" class="entry__profile-pic">
                     <img class="avatar" src="public/images/avatars/user-03.jpg" alt="">
                   </a>
                   <ul class="entry__meta">
-                    <li><a href="#0">John Doe</a></li>
-                    <li>December 27, 2017</li>
+                    <li><a href="index.php?page=post&id=2">Eclecticism.</a></li>
+                    <li>17 Octobre 2021</li>
                   </ul>
                 </div>
               </div>
@@ -183,15 +160,14 @@
 
             <div class="entry" style="background-image:url('public/images/thumbs/featured/featured-beetle.jpg');">
               <div class="entry__content">
-                <span class="entry__category"><a href="#0">LifeStyle</a></span>
-                <h1><a href="#0" title="">Throwback To The Good Old Days.</a></h1>
+                <h1><a href="index.php?page=post&id=3" title="">Retour au bon vieux temps</a></h1>
                 <div class="entry__info">
-                  <a href="#0" class="entry__profile-pic">
+                  <a href="index.php?page=post&id=3" class="entry__profile-pic">
                     <img class="avatar" src="public/images/avatars/user-03.jpg" alt="">
                   </a>
                   <ul class="entry__meta">
-                    <li><a href="#0">John Doe</a></li>
-                    <li>December 21, 2017</li>
+                    <li><a href="index.php?page=post&id=3">Eclecticism.</a></li>
+                    <li>19 Octobre 2021</li>
                   </ul>
                 </div>
               </div>
