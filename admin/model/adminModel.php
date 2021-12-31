@@ -63,3 +63,30 @@ function delPost(string $postId): bool{
   $deletePost = New Post();
   return $deletePost->deletePost($postId);
 }
+
+/**
+ * Call the Post Class and the newComment function
+ *
+ * @param string $postID ID of the post who receive the new comment
+ * @param string $name Username of the user who create the comment
+ * @param string $message Comment content
+ * @return bool True if successfully created, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function setComment(string $postID, string $name, string $message): bool
+{
+  $newComment = New Post();
+  return $newComment->newComment($postID, $name, $message);
+}
+
+/**
+ * Call the Post Class and the deleteComment function
+ *
+ * @param $commID string ID of the specific comment
+ * @return bool True on success, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function delComment(string $commID): bool{
+  $deleteComment = New Post();
+  return $deleteComment->deleteComment($commID);
+}

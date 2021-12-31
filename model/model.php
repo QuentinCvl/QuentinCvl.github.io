@@ -24,4 +24,3 @@ function getComment($postId) {
   $req = $dbh->query("SELECT * FROM comment WHERE postID = '$postId'");
   return $req->fetchAll(PDO::FETCH_ASSOC);
 }
-// TODO: Create the function for comment

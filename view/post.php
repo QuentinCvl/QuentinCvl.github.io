@@ -5,6 +5,7 @@ if (!isset($post) || !is_array($post)) {
 }
 $title = "Electicism. - Post";
 ob_start();
+session_start();
 ?>
   <section class="s-content s-content--narrow s-content--no-padding-bottom">
     <article class="row format-standard">
@@ -83,23 +84,18 @@ ob_start();
       </div>
     </article>
 
-    <?php
-    echo '<pre>';
-    print_r($comment);
-    echo '</pre>';
-    ?>
     <!-- list of comments -->
     <div class="comments-wrap">
       <div id="comments" class="row">
         <div class="col-full">
           <h3 class="h2"><?php
             $count = count($comment);
-            echo $count > 1 ? "$count Commentaires" : "$count Commentaire"?>
+            echo $count . " Commentaire" . ($count > 1 ? "s" : "") ?>
           </h3>
 
           <!-- commentlist -->
           <ol class="commentlist">
-            <?php foreach($comment as $com) : ?>
+            <?php foreach ($comment as $com) : ?>
               <li class="depth-1 comment">
                 <div class="comment__content">
                   <div class="comment__info">
@@ -116,6 +112,15 @@ ob_start();
                     <p><?php echo $com['message'] ?></p>
                   </div>
                 </div>
+                <?php if (isset($_SESSION) && !empty($_SESSION)) : ?>
+                <form action="admin/index.php?page=deleteCom" method="post">
+                  <input type="hidden" value="<?php echo $com['id'] ?>" name="commID">
+                  <input type="hidden" value="<?php echo $post['id'] ?>" name="postID">
+                  <button type="submit" class="btn btn-link deleteComment">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </form>
+                <?php endif; ?>
               </li>
             <?php endforeach; ?>
           </ol>
@@ -125,18 +130,19 @@ ob_start();
           <div class="respond">
             <h3 class="h2">Ajouter un commentaire</h3>
 
-            <form name="contactForm" id="contactForm" method="post" action="">
+            <form name="contactForm" id="contactForm" method="post" action="admin/index.php?page=createComment">
               <fieldset>
                 <div class="form-field">
                   <input name="cName" type="text" id="cName" class="full-width"
-                         placeholder="Votre nom" value="">
+                         placeholder="Votre nom" value="" style="color: black">
                 </div>
 
                 <div class="message form-field">
                   <textarea name="cMessage" id="cMessage" class="full-width"
-                            placeholder="Votre message"></textarea>
+                            placeholder="Votre message" style="color: black"></textarea>
                 </div>
 
+                <input type="hidden" name="postID" value="<?php echo $post['id'] ?>">
                 <button type="submit" class="submit btn--primary btn--large full-width">Submit</button>
               </fieldset>
             </form>

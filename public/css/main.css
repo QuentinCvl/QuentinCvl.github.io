@@ -4136,6 +4136,17 @@ footer h4::after {
     padding-top: 1.8rem;
 }
 
+.comment .deleteComment {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+    cursor: pointer;
+    /* Remove Btn style */
+    border: none;
+    background: transparent;
+    font-size: initial;
+}
 /* comments form
  * ---------------------------- */
 #comments .respond {

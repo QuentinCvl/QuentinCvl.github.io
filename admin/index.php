@@ -48,6 +48,18 @@ if (!isset($_SESSION['id']) && !isset($_POST['loginBtn'])) {
       }
     } elseif ($_GET['page'] === "deletePost") {
       deletePost();
+    } elseif ($_GET['page'] === "createComment") {
+      if(isset($_POST['postID'], $_POST['cName'], $_POST['cMessage'])) {
+        addComment($_POST['postID'], $_POST['cName'], $_POST['cMessage']);
+      } else {
+        die('Erreur : Tous les champs ne sont pas remplis !');
+      }
+    } elseif ($_GET['page'] === "deleteCom") {
+      if(isset($_POST['commID'], $_POST['postID'])) {
+        deleteComment($_POST['commID'], $_POST['postID']);
+      } else {
+        die('Erreur : l\'ID du commentaire est introuvable.');
+      }
     }
   } elseif (!isset($_GET['page'])) {
     require_once('view/home.php');

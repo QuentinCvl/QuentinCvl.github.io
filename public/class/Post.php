@@ -124,4 +124,37 @@ class Post
     $req->execute();
     return (bool)$req->rowCount();
   }
+
+  /**
+   * Create Comment function
+   *
+   * @param string $postID
+   * @param string $name
+   * @param string $message
+   * @return bool Return true if success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function newComment(string $postID, string $name, string $message): bool
+  {
+    $req = $this->dbh->prepare("INSERT INTO comment (postID,username,message, publishedThe) 
+                        VALUES (:postID,:username,:message, NOW())");
+    $req->bindParam(':postID', $postID);
+    $req->bindParam(':username', $name);
+    $req->bindParam(':message', $message);
+    return $req->execute();
+  }
+
+  /**
+   * Delete a specific post and this thumbnail
+   *
+   * @param $id string Data of the post (id, title, content)
+   * @return bool Return the true on success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function deleteComment(string $id): bool {
+    $req = $this->dbh->prepare("DELETE FROM comment WHERE id = :id");
+    $req->bindParam(':id', $id);
+    $req->execute();
+    return (bool)$req->rowCount();
+  }
 }

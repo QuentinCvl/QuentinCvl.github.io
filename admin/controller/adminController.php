@@ -51,3 +51,19 @@ function deletePost()
     exit();
   } else echo "Post are NOT deleted";
 }
+
+function addComment($postID, $name, $message) {
+  $status = setComment($postID, $name, $message);
+  if($status) {
+    header('Location: ../index.php?page=post&id='.$postID);
+    exit();
+  }
+}
+
+function deleteComment($commID, $postID) {
+  $status = delComment($commID);
+  if($status) {
+    header('Location: ../index.php?page=post&id='.$postID);
+    exit();
+  }
+}
