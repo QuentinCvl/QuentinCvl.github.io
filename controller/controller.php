@@ -11,7 +11,7 @@ function listPosts() {
 
 function post() {
   $post = getPost($_GET['id']);
-  // get comment
+  $comment = getComment($_GET['id']);
 
   require_once('view/post.php');
 }

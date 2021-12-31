@@ -1,6 +1,12 @@
 <?php
 $title = "Electicism. - Accueil";
 ob_start();
+
+if(!isset($posts)) {
+  echo 'Pas de post trouvé :(';
+  $content = ob_get_clean();
+  require 'template/general.php';
+}
 ?>
   <section class="s-content">
     <div class="row masonry-wrap">

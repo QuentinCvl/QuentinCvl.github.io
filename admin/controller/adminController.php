@@ -1,6 +1,10 @@
 <?php
 require 'model/adminModel.php';
 
+function adminHome()
+{
+  require_once('view/home.php');
+}
 
 function login($id, $pswd)
 {
@@ -11,11 +15,6 @@ function login($id, $pswd)
     header("Location: index.php?page=login&error=1");
   }
   exit();
-}
-
-function adminHome()
-{
-  require_once('view/home.php');
 }
 
 function addPost($title, $img, $content)
@@ -51,4 +50,20 @@ function deletePost()
     header('Location: ../index.php');
     exit();
   } else echo "Post are NOT deleted";
+}
+
+function addComment($postID, $name, $message) {
+  $status = setComment($postID, $name, $message);
+  if($status) {
+    header('Location: ../index.php?page=post&id='.$postID);
+    exit();
+  }
+}
+
+function deleteComment($commID, $postID) {
+  $status = delComment($commID);
+  if($status) {
+    header('Location: ../index.php?page=post&id='.$postID);
+    exit();
+  }
 }
