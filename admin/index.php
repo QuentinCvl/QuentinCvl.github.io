@@ -54,9 +54,14 @@ if (!isset($_SESSION['id']) && !isset($_POST['loginBtn'])) {
       } else {
         die('Erreur : Tous les champs ne sont pas remplis !');
       }
-    } elseif ($_GET['page'] === "deleteCom") {
+    } elseif ($_GET['page'] === "adminComment") {
       if(isset($_POST['commID'], $_POST['postID'])) {
-        deleteComment($_POST['commID'], $_POST['postID']);
+        print_r($_POST);
+        if(isset($_POST['valid'])) {
+          validComment($_POST['commID'], $_POST['postID']);
+        } elseif (isset($_POST['delete'])) {
+          deleteComment($_POST['commID'], $_POST['postID']);
+        }
       } else {
         die('Erreur : l\'ID du commentaire est introuvable.');
       }

@@ -60,6 +60,14 @@ function addComment($postID, $name, $message) {
   }
 }
 
+function validComment($commID, $postID) {
+  $status = valComment($commID);
+  if($status) {
+    header('Location: ../index.php?page=post&id='.$postID);
+    exit();
+  }
+}
+
 function deleteComment($commID, $postID) {
   $status = delComment($commID);
   if($status) {

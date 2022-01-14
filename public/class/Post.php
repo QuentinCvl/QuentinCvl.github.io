@@ -145,6 +145,20 @@ class Post
   }
 
   /**
+   * Valid a specific commentary
+   *
+   * @param $id string ID of the commentary
+   * @return bool Return the true if successfully validated, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function validateComment(string $id): bool {
+    $req = $this->dbh->prepare("UPDATE comment SET validated = 1 WHERE id = :id");
+    $req->bindParam(':id', $id);
+    $req->execute();
+    return (bool)$req->rowCount();
+  }
+
+  /**
    * Delete a specific commentary
    *
    * @param $id string ID of the commentary
