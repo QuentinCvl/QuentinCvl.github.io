@@ -80,6 +80,18 @@ function setComment(string $postID, string $name, string $message): bool
 }
 
 /**
+ * Call the Post Class and the validateComment function
+ *
+ * @param $commID string ID of the specific comment
+ * @return bool True on success, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function valComment(string $commID): bool{
+  $valComment = New Post();
+  return $valComment->validateComment($commID);
+}
+
+/**
  * Call the Post Class and the deleteComment function
  *
  * @param $commID string ID of the specific comment

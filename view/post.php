@@ -69,13 +69,14 @@ session_start();
                 $count++;
               }
             }
-            echo $count . " Commentaire" . ($count > 1 ? "s" : "") ?>
+            echo $count . " Commentaire" . ($count > 1 ? "s" : "")
+            ?>
           </h3>
 
           <!-- commentlist -->
           <ol class="commentlist">
             <?php foreach ($comment as $com) {
-              if($com['validated']) { ?>
+              if($com['validated'] || (isset($_SESSION) && !empty($_SESSION))) : ?>
               <li class="depth-1 comment">
                 <div class="comment__content">
                   <div class="comment__info">
@@ -93,19 +94,21 @@ session_start();
                   </div>
                 </div>
                 <?php if (isset($_SESSION) && !empty($_SESSION)) : ?>
-                <form action="admin/index.php?page=deleteCom" method="post">
+                <form action="admin/index.php?page=adminComment" method="post">
                   <input type="hidden" value="<?php echo $com['id'] ?>" name="commID">
                   <input type="hidden" value="<?php echo $post['id'] ?>" name="postID">
-                  <button type="submit" class="btn btn-link deleteComment">
+                  <?php if(!$com['validated']) : ?>
+                    <button type="submit" name="valid" class="btn btn-link adminCommentBtn validate">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>
+                    <?php endif; ?>
+                  <button type="submit" name="delete" class="btn btn-link adminCommentBtn delete">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </button>
                 </form>
                 <?php endif; ?>
               </li>
-            <?php } else {
-                //display if logged on admin
-              }
-            } ?>
+              <?php endif; } ?>
           </ol>
 
           <!-- Comment form
