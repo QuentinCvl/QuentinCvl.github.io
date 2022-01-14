@@ -18,11 +18,6 @@ session_start();
             setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
             echo strftime("%d %B %Y", strtotime($post['createdThe']));
             ?></li>
-          <!--<li class="cat">
-            Catégorie :
-            <a href="#0">Lifestyle</a>
-            <a href="#0">Travel</a>
-          </li>-->
         </ul>
       </div>
 
@@ -49,36 +44,15 @@ session_start();
         }
         ?>
 
-        <!-- list of post's tags -->
-        <!--<p class="s-content__tags">
-          <span>Les Tags</span>
-          <span class="s-content__tag-list">
-            <a href="#0">orci</a>
-            <a href="#0">lectus</a>
-            <a href="#0">varius</a>
-            <a href="#0">turpis</a>
-          </span>
-        </p>-->
-
         <!-- Author information -->
         <div class="s-content__author">
           <img src="public/images/avatars/user-03.jpg" alt="">
           <div class="s-content__author-about">
             <h4 class="s-content__author-name">
-              <a href="#0">Jonathan Doe</a>
+              <a href="#0"><?php echo $owner['username'] ?></a>
             </h4>
 
-            <p>Alias aperiam at debitis deserunt dignissimos dolorem doloribus, fuga fugiat impedit laudantium magni
-              maxime nihil nisi quidem quisquam sed ullam voluptas voluptatum. Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit.
-            </p>
-
-            <ul class="s-content__author-social">
-              <li><a href="#0">Facebook</a></li>
-              <li><a href="#0">Twitter</a></li>
-              <li><a href="#0">GooglePlus</a></li>
-              <li><a href="#0">Instagram</a></li>
-            </ul>
+            <p><?php echo $owner['bio']?: '' ?></p>
           </div>
         </div>
       </div>
@@ -89,13 +63,19 @@ session_start();
       <div id="comments" class="row">
         <div class="col-full">
           <h3 class="h2"><?php
-            $count = count($comment);
+            $count = 0;
+            foreach($comment as $com) {
+              if($com['validated']) {
+                $count++;
+              }
+            }
             echo $count . " Commentaire" . ($count > 1 ? "s" : "") ?>
           </h3>
 
           <!-- commentlist -->
           <ol class="commentlist">
-            <?php foreach ($comment as $com) : ?>
+            <?php foreach ($comment as $com) {
+              if($com['validated']) { ?>
               <li class="depth-1 comment">
                 <div class="comment__content">
                   <div class="comment__info">
@@ -122,7 +102,10 @@ session_start();
                 </form>
                 <?php endif; ?>
               </li>
-            <?php endforeach; ?>
+            <?php } else {
+                //display if logged on admin
+              }
+            } ?>
           </ol>
 
           <!-- Comment form

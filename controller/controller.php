@@ -12,6 +12,7 @@ function listPosts() {
 function post() {
   $post = getPost($_GET['id']);
   $comment = getComment($_GET['id']);
+  $owner = getOwner($_GET['id']);
 
   require_once('view/post.php');
 }
