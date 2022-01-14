@@ -52,6 +52,7 @@ if (!isset($_SESSION['id']) && !isset($_POST['loginBtn'])) {
       if(isset($_POST['postID'], $_POST['cName'], $_POST['cMessage'])) {
         addComment($_POST['postID'], $_POST['cName'], $_POST['cMessage']);
       } else {
+        print_r($_POST);
         die('Erreur : Tous les champs ne sont pas remplis !');
       }
     } elseif ($_GET['page'] === "adminComment") {

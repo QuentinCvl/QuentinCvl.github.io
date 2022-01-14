@@ -136,11 +136,13 @@ class Post
    */
   public function newComment(string $postID, string $name, string $message): bool
   {
-    $req = $this->dbh->prepare("INSERT INTO comment (postID,username,message, publishedThe) 
-                        VALUES (:postID,:username,:message, NOW())");
+    $validate = isset($_SESSION) ? 1 : 0;
+    $req = $this->dbh->prepare("INSERT INTO comment (postID,username,message, publishedThe, validated) 
+                        VALUES (:postID,:username,:message, NOW(), :validated)");
     $req->bindParam(':postID', $postID);
     $req->bindParam(':username', $name);
     $req->bindParam(':message', $message);
+    $req->bindParam(':validated', $validate);
     return $req->execute();
   }
 

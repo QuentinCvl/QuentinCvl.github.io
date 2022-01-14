@@ -55,7 +55,7 @@ function deletePost()
 function addComment($postID, $name, $message) {
   $status = setComment($postID, $name, $message);
   if($status) {
-    header('Location: ../index.php?page=post&id='.$postID);
+    header('Location: ../index.php?page=post&id='.$postID.'#comments');
     exit();
   }
 }
@@ -63,7 +63,7 @@ function addComment($postID, $name, $message) {
 function validComment($commID, $postID) {
   $status = valComment($commID);
   if($status) {
-    header('Location: ../index.php?page=post&id='.$postID);
+    header('Location: ../index.php?page=post&id='.$postID.'#comments');
     exit();
   }
 }
@@ -71,7 +71,7 @@ function validComment($commID, $postID) {
 function deleteComment($commID, $postID) {
   $status = delComment($commID);
   if($status) {
-    header('Location: ../index.php?page=post&id='.$postID);
+    header('Location: ../index.php?page=post&id='.$postID.'#comments');
     exit();
   }
 }
