@@ -24,3 +24,9 @@ function getComment($postId) {
   $req = $dbh->query("SELECT * FROM comment WHERE postID = '$postId'");
   return $req->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getOwner($postId) {
+  $dbh = dbConnect();
+  $req = $dbh->query("SELECT u.username, u.bio FROM user as u, post as p WHERE u.id = p.userID and p.id = '$postId'");
+  return $req->fetch(PDO::FETCH_ASSOC);
+}

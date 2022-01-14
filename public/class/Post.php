@@ -106,7 +106,7 @@ class Post
   /**
    * Delete a specific post and this thumbnail
    *
-   * @param $id string Data of the post (id, title, content)
+   * @param $id string ID of the post
    * @return bool Return the true on success, false if not.
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
@@ -131,7 +131,7 @@ class Post
    * @param string $postID
    * @param string $name
    * @param string $message
-   * @return bool Return true if success, false if not.
+   * @return bool Return true if successfully created, false if not.
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
   public function newComment(string $postID, string $name, string $message): bool
@@ -145,10 +145,10 @@ class Post
   }
 
   /**
-   * Delete a specific post and this thumbnail
+   * Delete a specific commentary
    *
-   * @param $id string Data of the post (id, title, content)
-   * @return bool Return the true on success, false if not.
+   * @param $id string ID of the commentary
+   * @return bool Return the true if successfully deleted, false if not.
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
   public function deleteComment(string $id): bool {
