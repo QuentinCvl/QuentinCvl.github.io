@@ -120,7 +120,8 @@ session_start();
               <fieldset>
                 <div class="form-field">
                   <input name="cName" type="text" id="cName" class="full-width"
-                         placeholder="Votre nom" value="" style="color: black">
+                         placeholder="Votre nom" style="color: black"
+                         value="<?php echo $_SESSION['username']?: '' ?>" <?php echo $_SESSION['username']? 'readonly': '' ?>>
                 </div>
 
                 <div class="message form-field">
