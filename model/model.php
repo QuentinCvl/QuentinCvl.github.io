@@ -1,32 +1,41 @@
 <?php
 
-function dbConnect(): PDO {
-  $BDD = new BDD();
-  return $BDD->getConnection();
+function getPopularPosts() {
+  $getPopularPosts = New Post();
+  return $getPopularPosts->getPopularPosts();
 }
 
 function getPosts() {
-  $dbh = dbConnect();
-  $req = $dbh->query("SELECT * FROM post WHERE fav = 0 ORDER BY createdThe DESC ");
-  return $req->fetchAll(PDO::FETCH_ASSOC);
+  $getPosts = New Post();
+  return $getPosts->getPosts();
 }
 
 function getPost($postId) {
-  $dbh = dbConnect();
-  $req = $dbh->prepare("SELECT * FROM post WHERE id = :id");
-  $req->bindParam(':id', $postId);
-  $req->execute();
-  return $req->fetch(PDO::FETCH_ASSOC);
+  $getPost = New Post();
+  return $getPost->getPost($postId);
+}
+
+/**
+ * Call the Post Class and the newComment function
+ *
+ * @param string $postID ID of the post who receive the new comment
+ * @param string $name Username of the user who create the comment
+ * @param string $message Comment content
+ * @return bool True if successfully created, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function setComment(string $postID, string $name, string $message): bool
+{
+  $newComment = New Post();
+  return $newComment->newComment($postID, $name, $message);
 }
 
 function getComment($postId) {
-  $dbh = dbConnect();
-  $req = $dbh->query("SELECT * FROM comment WHERE postID = '$postId'");
-  return $req->fetchAll(PDO::FETCH_ASSOC);
+  $getComments = New Post();
+  return $getComments->getComments($postId);
 }
 
 function getOwner($postId) {
-  $dbh = dbConnect();
-  $req = $dbh->query("SELECT u.username, u.bio FROM user as u, post as p WHERE u.id = p.userID and p.id = '$postId'");
-  return $req->fetch(PDO::FETCH_ASSOC);
+  $getOwner = New Post();
+  return $getOwner->getOwner($postId);
 }

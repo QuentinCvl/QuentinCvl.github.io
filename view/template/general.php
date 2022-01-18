@@ -21,7 +21,7 @@ if(!isset($_SESSION)) session_start();
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body id="top">
-<?php if (isset($_SESSION) && !empty($_SESSION)) : ?>
+<?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) : ?>
   <div id="adminbar">
     <ul class="float-left">
       <li id="adminbar-panel">
@@ -45,7 +45,7 @@ if(!isset($_SESSION)) session_start();
     <ul class="float-right ab-top-secondary">
       <li id="adminbar-myaccount" class="menupop with-avatar float-right">
         <a class="ab-item" aria-haspopup="true" href="#">
-          <span>Bonjour, <?php echo $_SESSION['username'] ?></span>
+          <span>Bonjour, <?php echo $_SESSION['user']['username'] ?></span>
           <img src="public/images/avatars/user-05.jpg"
                class="avatar avatar-26 photo" loading="lazy" alt="">
         </a>
@@ -55,7 +55,7 @@ if(!isset($_SESSION)) session_start();
               <a class="ab-item" tabindex="-1" href="admin/index.php">
                 <img src="public/images/avatars/user-05.jpg"
                      class="avatar avatar-64 photo" loading="lazy" alt="">
-                <span class="display-name"><?php echo $_SESSION['username'] ?></span>
+                <span class="display-name"><?php echo $_SESSION['user']['username'] ?></span>
               </a>
             </li>
             <li id="wp-admin-bar-edit-profile">
@@ -78,7 +78,7 @@ if(!isset($_SESSION)) session_start();
           <img src="public/images/Eclecticism-nobg.png" alt="Homepage">
         </a>
       </div>
-      <?php if(!isset($_SESSION)) : ?>
+      <?php if(!isset($_SESSION['user'])) : ?>
       <a style="float: right" href="admin/">a</a>
       <?php endif; ?>
       <ul class="header__social">
@@ -184,73 +184,28 @@ if(!isset($_SESSION)) session_start();
 <section class="s-extra">
   <div class="row top">
     <div class="col-eight md-six tab-full popular">
-      <h3>Popular Posts</h3>
+      <h3>Publications populaire</h3>
       <div class="block-1-2 block-m-full popular__posts">
-        <article class="col-block popular__post">
-          <a href="#0" class="popular__thumb">
-            <img src="public/images/thumbs/small/wheel-150.jpg" alt="">
-          </a>
-          <h5><a href="#0">Visiting Theme Parks Improves Your Health.</a></h5>
-          <section class="popular__meta">
-            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-            <span class="popular__date"><span>on</span> <time datetime="2017-12-19">Dec 19, 2017</time></span>
-          </section>
-        </article>
-        <article class="col-block popular__post">
-          <a href="#0" class="popular__thumb">
-            <img src="public/images/thumbs/small/shutterbug-150.jpg" alt="">
-          </a>
-          <h5><a href="#0">Key Benefits Of Family Photography.</a></h5>
-          <section class="popular__meta">
-            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-            <span class="popular__date"><span>on</span> <time datetime="2017-12-18">Dec 18, 2017</time></span>
-          </section>
-        </article>
-        <article class="col-block popular__post">
-          <a href="#0" class="popular__thumb">
-            <img src="public/images/thumbs/small/cookies-150.jpg" alt="">
-          </a>
-          <h5><a href="#0">Absolutely No Sugar Oatmeal Cookies.</a></h5>
-          <section class="popular__meta">
-            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-            <span class="popular__date"><span>on</span> <time datetime="2017-12-16">Dec 16, 2017</time></span>
-          </section>
-        </article>
-        <article class="col-block popular__post">
-          <a href="#0" class="popular__thumb">
-            <img src="public/images/thumbs/small/beetle-150.jpg" alt="">
-          </a>
-          <h5><a href="#0">Throwback To The Good Old Days.</a></h5>
-          <section class="popular__meta">
-            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-            <span class="popular__date"><span>on</span> <time datetime="2017-12-16">Dec 16, 2017</time></span>
-          </section>
-        </article>
-        <article class="col-block popular__post">
-          <a href="#0" class="popular__thumb">
-            <img src="public/images/thumbs/small/tulips-150.jpg" alt="">
-          </a>
-          <h5><a href="#0">10 Interesting Facts About Caffeine.</a></h5>
-          <section class="popular__meta">
-            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-            <span class="popular__date"><span>on</span> <time datetime="2017-12-14">Dec 14, 2017</time></span>
-          </section>
-        </article>
-        <article class="col-block popular__post">
-          <a href="#0" class="popular__thumb">
-            <img src="public/images/thumbs/small/salad-150.jpg" alt="">
-          </a>
-          <h5><a href="#0">Healthy Mediterranean Salad Recipes</a></h5>
-          <section class="popular__meta">
-            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-            <span class="popular__date"><span>on</span> <time datetime="2017-12-12">Dec 12, 2017</time></span>
-          </section>
-        </article>
+        <?php
+        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+        foreach ($_SESSION['pop'] as $pop) : ?>
+          <article class="col-block popular__post">
+            <a href="index.php?page=post&id=<?php echo $pop['id'] ?>" class="popular__thumb">
+              <img src="public/images/post/<?php echo $pop['thumbnail'] ?>" alt="">
+            </a>
+            <h5><a href="index.php?page=post&id=<?php echo $pop['id'] ?>"><?php echo $pop['title'] ?></a></h5>
+            <section class="popular__meta">
+              <span class="popular__author"><span>Par</span> <a href="#0"> <?php echo $pop['username'] ?></a></span>
+              <span class="popular__date"><span>le</span>
+                <time datetime="<?php echo $pop['createdThe'] ?>"><?php echo strftime("%d %B %Y", strtotime($pop['createdThe']));?></time></span>
+            </section>
+          </article>
+        <?php endforeach; ?>
       </div>
     </div>
 
     <div class="col-four md-six tab-full about">
-      <h3>About Philosophy</h3>
+      <h3>Notre Philosophie</h3>
       <p>
         Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Pellentesque in ipsum id
         orci porta dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
@@ -274,64 +229,10 @@ if(!isset($_SESSION)) session_start();
     </div>
   </div>
 
-  <div class="row bottom tags-wrap">
-    <div class="col-full tags">
-      <h3>Tags</h3>
-      <div class="tagcloud">
-        <a href="#0">Lieux</a>
-        <a href="#0">Planete</a>
-        <a href="#0">étoile</a>
-        <a href="#0">Capitale</a>
-        <a href="#0">Montagne</a>
-        <a href="#0">Rock</a>
-        <a href="#0">Alimentation</a>
-        <a href="#0">Sport</a>
-        <a href="#0">Covid-19</a>
-        <a href="#0">Festival</a>
-        <a href="#0">Grèce</a>
-        <a href="#0">Satelite</a>
-        <a href="#0">Concert</a>
-      </div>
-    </div>
-  </div>
 </section>
 <footer class="s-footer">
   <div class="s-footer__main">
     <div class="row">
-      <div class="col-two md-four mob-full s-footer__sitelinks">
-        <h4>Quick Links</h4>
-        <ul class="s-footer__linklist">
-          <li><a href="#0">Accueil</a></li>
-          <li><a href="#0">Blog</a></li>
-          <li><a href="#0">Styles</a></li>
-          <li><a href="#0">à propos</a></li>
-          <li><a href="#0">Contact</a></li>
-          <li><a href="#0">Compte</a></li>
-          <li><a href="#0">Privacy Policy</a></li>
-        </ul>
-      </div>
-      <div class="col-two md-four mob-full s-footer__archives">
-        <h4>Archives</h4>
-        <ul class="s-footer__linklist">
-          <li><a href="#0">Septembre 2021</a></li>
-          <li><a href="#0">Août 2021</a></li>
-          <li><a href="#0">Juillet 2021</a></li>
-          <li><a href="#0">Juin 2021</a></li>
-          <li><a href="#0">Mai 2021</a></li>
-          <li><a href="#0">Avril 2021</a></li>
-        </ul>
-      </div>
-      <div class="col-two md-four mob-full s-footer__social">
-        <h4>Social</h4>
-        <ul class="s-footer__linklist">
-          <li><a href="#0">Facebook</a></li>
-          <li><a href="#0">Instagram</a></li>
-          <li><a href="#0">Twitter</a></li>
-          <li><a href="#0">Pinterest</a></li>
-          <li><a href="#0">Google+</a></li>
-          <li><a href="#0">LinkedIn</a></li>
-        </ul>
-      </div>
       <div class="col-five md-full end s-footer__subscribe">
         <h4>Notre Newsletter</h4>
         <p>Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim

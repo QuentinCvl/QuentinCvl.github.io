@@ -26,7 +26,7 @@
   <ul class="float-right ab-top-secondary">
     <li id="adminbar-myaccount" class="menupop with-avatar float-right">
       <a class="ab-item" aria-haspopup="true" href="admin/index.php?profile.php">
-        <span>Bonjour, <?php echo $_SESSION['username'] ?></span>
+        <span>Bonjour, <?php echo $_SESSION['user']['username'] ?></span>
         <img src="../public/images/avatars/user-05.jpg"
              class="avatar avatar-26 photo" loading="lazy" alt="">
       </a>
@@ -36,7 +36,7 @@
             <a class="ab-item" tabindex="-1" href="index.php?page=profile">
               <img src="../public/images/avatars/user-05.jpg"
                    class="avatar avatar-64 photo" loading="lazy" alt="">
-              <span class="display-name"><?php echo $_SESSION['username'] ?></span>
+              <span class="display-name"><?php echo $_SESSION['user']['username'] ?></span>
             </a>
           </li>
           <li id="wp-admin-bar-edit-profile">
