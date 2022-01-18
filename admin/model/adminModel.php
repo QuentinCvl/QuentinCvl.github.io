@@ -28,7 +28,7 @@ function setPost(string $title, array $img, string $content) {
 }
 
 /**
- * Call the Post Class and the getData function
+ * Call the Post Class and the getUpdateData function
  *
  * @param $id String ID of the post
  * @return array|false Post data if success, false if not.
@@ -36,7 +36,7 @@ function setPost(string $title, array $img, string $content) {
  */
 function getUpdateData(string $id): array {
   $getData = New Post();
-  return $getData->getData($id);
+  return $getData->getPost($id);
 }
 
 /**
@@ -62,21 +62,6 @@ function updPost(array $data, $img = false): int {
 function delPost(string $postId): bool{
   $deletePost = New Post();
   return $deletePost->deletePost($postId);
-}
-
-/**
- * Call the Post Class and the newComment function
- *
- * @param string $postID ID of the post who receive the new comment
- * @param string $name Username of the user who create the comment
- * @param string $message Comment content
- * @return bool True if successfully created, false if not.
- * @author Quentin Cuvelier <quentincuvelier@laposte.net>
- */
-function setComment(string $postID, string $name, string $message): bool
-{
-  $newComment = New Post();
-  return $newComment->newComment($postID, $name, $message);
 }
 
 /**

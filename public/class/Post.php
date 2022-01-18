@@ -16,6 +16,81 @@ class Post
   }
 
   /**
+   * Get the 6 most popular posts
+   *
+   * @return array|false Return the post data if success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function getPopularPosts(): array
+  {
+    $req = $this->dbh->query("SELECT postID, count(*) as count FROM comment WHERE validated = 1 GROUP BY postID");
+    $comments = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    $columns = array_column($comments, 'count');
+    array_multisort($columns, SORT_DESC, $comments);
+    if(count($comments) > 6) {
+      $comments = array_slice($comments, 0, 6);
+    }
+
+    $listPop = array();
+    foreach ($comments as $com) {
+      $query = "SELECT p.id, p.title, p.thumbnail, p.createdThe, u.username 
+                FROM post as p, user as u 
+                WHERE p.id = :id and p.userID = u.id";
+      $req = $this->dbh->prepare($query);
+      $req->bindParam(':id', $com['postID']);
+      $req->execute();
+      $listPop[] = $req->fetch(PDO::FETCH_ASSOC);
+    }
+
+    session_start();
+    $_SESSION['pop'] = $listPop;
+    return $listPop;
+  }
+
+  /**
+   * Get all no fav post
+   *
+   * @return array|false Return posts data if success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function getPosts(): array
+  {
+    $req = $this->dbh->query("SELECT * FROM post WHERE fav = 0 ORDER BY createdThe DESC ");
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * Get data from specific post
+   *
+   * @param string $id ID of the specific post
+   * @return array|false Return the post data if success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function getPost(string  $id): array
+  {
+    $req = $this->dbh->prepare("SELECT * FROM post WHERE id = :id");
+    $req->bindParam(':id', $id);
+    $req->execute();
+    return $req->fetch(PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * Get Owner data from specific post
+   *
+   * @param string $id ID of the specific post
+   * @return array|false Return the owner data if success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function getOwner(string  $id): array
+  {
+    $req = $this->dbh->prepare("SELECT u.username, u.bio FROM user as u, post as p WHERE u.id = p.userID and p.id = :id");
+    $req->bindParam(':id', $id);
+    $req->execute();
+    return $req->fetch(PDO::FETCH_ASSOC);
+  }
+
+  /**
    * Create Post function
    *
    * @param $title String Tile of the new publication
@@ -55,21 +130,6 @@ class Post
     $req->bindParam(':id', $lastID);
     $req->execute();
     return $lastID;
-  }
-
-  /**
-   * Get data of a specific post
-   *
-   * @param $id String ID of the post
-   * @return array|false Return the post data if success, false if not.
-   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
-   */
-  public function getData(string $id): array
-  {
-    $req = $this->dbh->prepare("SELECT title, thumbnail, content FROM post WHERE id = :id");
-    $req->bindParam(':id', $id);
-    $req->execute();
-    return $req->fetch(PDO::FETCH_ASSOC);
   }
 
   /**
@@ -126,6 +186,18 @@ class Post
   }
 
   /**
+   * Get all commentaries of a specific post
+   *
+   * @return array|false Return the post commentaries if success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function getComments($postId): array
+  {
+    $req = $this->dbh->query("SELECT * FROM comment WHERE postID = '$postId'");
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  /**
    * Create Comment function
    *
    * @param string $postID
@@ -136,7 +208,7 @@ class Post
    */
   public function newComment(string $postID, string $name, string $message): bool
   {
-    $validate = isset($_SESSION) ? 1 : 0;
+    $validate = isset($_SESSION['user']) ? 1 : 0;
     $req = $this->dbh->prepare("INSERT INTO comment (postID,username,message, publishedThe, validated) 
                         VALUES (:postID,:username,:message, NOW(), :validated)");
     $req->bindParam(':postID', $postID);

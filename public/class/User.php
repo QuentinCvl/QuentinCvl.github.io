@@ -28,15 +28,15 @@ class User {
     $dbh = $BDD->getConnection();
     $stmt = $dbh->prepare("SELECT * FROM user WHERE username = ?");
     $stmt->execute(array($this->username));
-    $status =  $stmt->rowCount() ? true : false;
+    $status = (bool)$stmt->rowCount();
     if($status) {
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
       $pass_verif = password_verify($this->pswd, $row["password"]);
       if($pass_verif) {
         session_start();
-        $_SESSION["id"] = (int)$row["id"];
-        $_SESSION["email"] = $row['email'];
-        $_SESSION["username"] = $row['username'];
+        $_SESSION['user']["id"] = (int)$row["id"];
+        $_SESSION['user']["email"] = $row['email'];
+        $_SESSION['user']["username"] = $row['username'];
       } else {
         return false;
       }

@@ -4,7 +4,7 @@ require_once("../vendor/autoload.php");
 require_once('controller/adminController.php');
 
 session_start();
-if (!isset($_SESSION['id']) && !isset($_POST['loginBtn'])) {
+if (!isset($_SESSION['user']['id']) && !isset($_POST['loginBtn'])) {
   require_once('view/login.php');
 } else { //If is connected
   if (isset ($_GET['page'])) {
@@ -48,13 +48,6 @@ if (!isset($_SESSION['id']) && !isset($_POST['loginBtn'])) {
       }
     } elseif ($_GET['page'] === "deletePost") {
       deletePost();
-    } elseif ($_GET['page'] === "createComment") {
-      if(isset($_POST['postID'], $_POST['cName'], $_POST['cMessage'])) {
-        addComment($_POST['postID'], $_POST['cName'], $_POST['cMessage']);
-      } else {
-        print_r($_POST);
-        die('Erreur : Tous les champs ne sont pas remplis !');
-      }
     } elseif ($_GET['page'] === "adminComment") {
       if(isset($_POST['commID'], $_POST['postID'])) {
         print_r($_POST);

@@ -52,14 +52,6 @@ function deletePost()
   } else echo "Post are NOT deleted";
 }
 
-function addComment($postID, $name, $message) {
-  $status = setComment($postID, $name, $message);
-  if($status) {
-    header('Location: ../index.php?page=post&id='.$postID.'#comments');
-    exit();
-  }
-}
-
 function validComment($commID, $postID) {
   $status = valComment($commID);
   if($status) {
