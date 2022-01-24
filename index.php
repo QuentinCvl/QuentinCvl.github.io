@@ -7,6 +7,7 @@ listPopularPosts();
 
 if (isset ($_GET['page'])) {
   if($_GET['page'] === "home") {
+    listFav();
     listPosts();
   } elseif($_GET['page'] === "post") {
     post();
@@ -27,6 +28,7 @@ if (isset ($_GET['page'])) {
 } elseif (isset ($_GET['page']) && file_exists('view/'.$_GET['page'] . '.html')) {
   require_once($_GET['page'] . '.html');
 } elseif (!isset($_GET['page'])) {
+  listFav();
   listPosts();
 } else {
   require_once("view/404.html");

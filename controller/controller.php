@@ -3,6 +3,10 @@ require 'model/model.php';
 
 // Each function is a root. She's calling the specific model function and the view
 
+function listFav() {
+  getFav();
+}
+
 function listPopularPosts() {
   getPopularPosts();
 }

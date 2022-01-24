@@ -1,57 +1,27 @@
 <div class="pageheader-content row">
   <div class="col-full">
     <div class="featured">
-      <div class="featured__column featured__column--big">
-        <div class="entry" style="background-image:url('public/images/thumbs/featured/featured-guitarman.jpg');">
+      <?php $i=0;
+      foreach ($_SESSION['fav'] as $fav) : ?>
+      <div class="featured__column featured__column--<?php echo $i === 0 ? 'big' : 'small' ?>">
+        <div class="entry" style="background-image:url('public/images/post/<?php echo $fav['thumbnail'] ?>');">
           <div class="entry__content">
-            <!--<span class="entry__category"><a href="#0">Musique</a></span>-->
             <h1>
-              <a href="index.php?page=post&id=1" title="">Ce que votre préférence musicale dit de vous et de votre personnalité.</a>
+              <a href="index.php?page=post&id=<?php echo $fav['id'] ?>" title=""><?php echo $fav['title'] ?></a>
             </h1>
             <div class="entry__info">
-              <a href="index.php?page=post&id=1" class="entry__profile-pic">
+              <a href="index.php?page=post&id=<?php echo $fav['id'] ?>" class="entry__profile-pic">
                 <img class="avatar" src="public/images/avatars/user-03.jpg" alt="">
               </a>
               <ul class="entry__meta">
-                <li><a href="index.php?page=post&id=1">Eclecticism.</a></li>
-                <li>17 Octobre 2021</li>
+                <li><a href="index.php?page=post&id=<?php echo $fav['id'] ?>"><?php echo $fav['username'] ?></a></li>
+                <li><?php echo strftime("%d %B %Y", strtotime($fav['createdThe'])) ?></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="featured__column featured__column--small">
-        <div class="entry" style="background-image:url('public/images/thumbs/featured/featured-watch.jpg');">
-          <div class="entry__content">
-            <h1><a href="index.php?page=post&id=2" title="">Montre connecté, les nouveautés</a></h1>
-            <div class="entry__info">
-              <a href="index.php?page=post&id=2" class="entry__profile-pic">
-                <img class="avatar" src="public/images/avatars/user-03.jpg" alt="">
-              </a>
-              <ul class="entry__meta">
-                <li><a href="index.php?page=post&id=2">Eclecticism.</a></li>
-                <li>17 Octobre 2021</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="entry" style="background-image:url('public/images/thumbs/featured/featured-beetle.jpg');">
-          <div class="entry__content">
-            <h1><a href="index.php?page=post&id=3" title="">Retour au bon vieux temps</a></h1>
-            <div class="entry__info">
-              <a href="index.php?page=post&id=3" class="entry__profile-pic">
-                <img class="avatar" src="public/images/avatars/user-03.jpg" alt="">
-              </a>
-              <ul class="entry__meta">
-                <li><a href="index.php?page=post&id=3">Eclecticism.</a></li>
-                <li>19 Octobre 2021</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php $i++;endforeach; ?>
     </div>
   </div>
 </div>

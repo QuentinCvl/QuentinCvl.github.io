@@ -1,7 +1,7 @@
 <footer class="s-footer">
   <div class="s-footer__main">
     <div class="row">
-      <div class="col-five md-full end s-footer__subscribe">
+      <div class="col-full md-full end s-footer__subscribe">
         <h4>Notre Newsletter</h4>
         <p>Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim
           exercitationem ipsam. Culpa consequatur occaecati.</p>
