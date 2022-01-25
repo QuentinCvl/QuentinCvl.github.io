@@ -18,6 +18,8 @@ if (isset ($_GET['page'])) {
       print_r($_POST);
       die('Erreur : Tous les champs ne sont pas remplis !');
     }
+  } elseif($_GET['page'] === "about") {
+    about();
   } elseif($_GET['page'] === "contact") {
     contact();
   } elseif($_GET['page'] === "disconnect") {

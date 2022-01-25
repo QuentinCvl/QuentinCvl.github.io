@@ -35,6 +35,10 @@ function addComment($postID, $name, $message) {
   }
 }
 
+function about() {
+  require_once('view/about.php');
+}
+
 function contact() {
   require_once('view/contact.php');
 }
