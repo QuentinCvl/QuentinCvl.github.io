@@ -16,6 +16,27 @@ class Post
   }
 
   /**
+   * Get all no fav post
+   *
+   * @return array|false Return posts data if success, false if not.
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function getFav(): array
+  {
+
+    $req = $this->dbh->query("SELECT p.id, p.title, p.createdThe, p.thumbnail, u.username 
+                FROM post as p, user as u 
+                WHERE fav = 1 AND p.userID = u.id
+                ORDER BY createdThe LIMIT 3");
+    $fav = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    if(!isset($_SESSION)) session_start();
+    $_SESSION['fav'] = $fav;
+
+    return $fav;
+  }
+
+  /**
    * Get the 6 most popular posts
    *
    * @return array|false Return the post data if success, false if not.

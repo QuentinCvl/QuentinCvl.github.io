@@ -7,6 +7,7 @@ listPopularPosts();
 
 if (isset ($_GET['page'])) {
   if($_GET['page'] === "home") {
+    listFav();
     listPosts();
   } elseif($_GET['page'] === "post") {
     post();
@@ -17,6 +18,8 @@ if (isset ($_GET['page'])) {
       print_r($_POST);
       die('Erreur : Tous les champs ne sont pas remplis !');
     }
+  } elseif($_GET['page'] === "about") {
+    about();
   } elseif($_GET['page'] === "contact") {
     contact();
   } elseif($_GET['page'] === "disconnect") {
@@ -24,11 +27,12 @@ if (isset ($_GET['page'])) {
     session_destroy();
     header('Location: admin/');
   }
-} elseif (isset ($_GET['page']) && file_exists($_GET['page'] . '.html')) {
+} elseif (isset ($_GET['page']) && file_exists('view/'.$_GET['page'] . '.html')) {
   require_once($_GET['page'] . '.html');
 } elseif (!isset($_GET['page'])) {
+  listFav();
   listPosts();
 } else {
-  require_once("404.html");
+  require_once("view/404.html");
 }
 

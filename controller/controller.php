@@ -3,6 +3,10 @@ require 'model/model.php';
 
 // Each function is a root. She's calling the specific model function and the view
 
+function listFav() {
+  getFav();
+}
+
 function listPopularPosts() {
   getPopularPosts();
 }
@@ -29,6 +33,10 @@ function addComment($postID, $name, $message) {
   } else {
     die('Something wrong append');
   }
+}
+
+function about() {
+  require_once('view/about.php');
 }
 
 function contact() {

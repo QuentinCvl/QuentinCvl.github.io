@@ -5,7 +5,7 @@ if (!isset($post) || !is_array($post)) {
 }
 $title = "Electicism. - Post";
 ob_start();
-session_start();
+if(!isset($_SESSION)) session_start();
 ?>
   <section class="s-content s-content--narrow s-content--no-padding-bottom">
     <article class="row format-standard">

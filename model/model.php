@@ -1,5 +1,10 @@
 <?php
 
+function getFav() {
+  $getFav = New Post();
+  return $getFav->getFav();
+}
+
 function getPopularPosts() {
   $getPopularPosts = New Post();
   return $getPopularPosts->getPopularPosts();
