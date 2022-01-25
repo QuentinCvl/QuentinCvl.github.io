@@ -23,8 +23,8 @@ function connect(string $id, string $pswd) : bool {
  * @author Quentin Cuvelier <quentincuvelier@laposte.net>
  */
 function setPost(string $title, array $img, string $content) {
-  $newPost = New Post();
-  return $newPost->newPost($title, $img, $content);
+  $newPost = New Post(array('title' => $title, 'thumbnail' => $img, 'content' => $content));
+  return $newPost->newPost();
 }
 
 /**
@@ -35,8 +35,8 @@ function setPost(string $title, array $img, string $content) {
  * @author Quentin Cuvelier <quentincuvelier@laposte.net>
  */
 function getUpdateData(string $id): array {
-  $getData = New Post();
-  return $getData->getPost($id);
+  $getData = New Post(array('id' => $id));
+  return $getData->getPost();
 }
 
 /**
@@ -48,8 +48,9 @@ function getUpdateData(string $id): array {
  * @author Quentin Cuvelier <quentincuvelier@laposte.net>
  */
 function updPost(array $data, $img = false): int {
-  $updatePost = New Post();
-  return $updatePost->updatePost($data, $img);
+  $updatePost = New Post(array('id' => $data['id'], 'title' => $data['title'], 'content' => $data['content'],
+    'thumbnail' => $img));
+  return $updatePost->updatePost();
 }
 
 /**
@@ -60,8 +61,8 @@ function updPost(array $data, $img = false): int {
  * @author Quentin Cuvelier <quentincuvelier@laposte.net>
  */
 function delPost(string $postId): bool{
-  $deletePost = New Post();
-  return $deletePost->deletePost($postId);
+  $deletePost = New Post(array('id' => $postId));
+  return $deletePost->deletePost();
 }
 
 /**
@@ -72,8 +73,8 @@ function delPost(string $postId): bool{
  * @author Quentin Cuvelier <quentincuvelier@laposte.net>
  */
 function valComment(string $commID): bool{
-  $valComment = New Post();
-  return $valComment->validateComment($commID);
+  $valComment = New Comment(array('id' => $commID));
+  return $valComment->validateComment();
 }
 
 /**
@@ -84,6 +85,6 @@ function valComment(string $commID): bool{
  * @author Quentin Cuvelier <quentincuvelier@laposte.net>
  */
 function delComment(string $commID): bool{
-  $deleteComment = New Post();
-  return $deleteComment->deleteComment($commID);
+  $deleteComment = New Comment(array('id' => $commID));
+  return $deleteComment->deleteComment();
 }

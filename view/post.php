@@ -77,7 +77,7 @@ if(!isset($_SESSION)) session_start();
           <ol class="commentlist">
             <?php foreach ($comment as $com) {
               if ($com['validated'] || (isset($_SESSION['user']) && !empty($_SESSION['user']))) : ?>
-                <li class="depth-1 comment">
+                <li class="depth-1 comment" <?php if(!$com['validated']) echo 'style="background-color: lightgray"'?>>
                   <div class="comment__avatar">
                     <img width="50" height="50" class="avatar" src="public/images/avatars/noAvatar.png" alt="">
                   </div>

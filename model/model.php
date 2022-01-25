@@ -16,31 +16,39 @@ function getPosts() {
 }
 
 function getPost($postId) {
-  $getPost = New Post();
-  return $getPost->getPost($postId);
+  $getPost = New Post(array('id' => $postId));
+  return $getPost->getPost();
+
+}
+
+function getOwner($postId) {
+  $getOwner = New Post(array('id' => $postId));
+  return $getOwner->getOwner();
 }
 
 /**
- * Call the Post Class and the newComment function
+ * Call the Comment Class and the newComment function
  *
  * @param string $postID ID of the post who receive the new comment
- * @param string $name Username of the user who create the comment
+ * @param string $username Username of the user who create the comment
  * @param string $message Comment content
  * @return bool True if successfully created, false if not.
  * @author Quentin Cuvelier <quentincuvelier@laposte.net>
  */
-function setComment(string $postID, string $name, string $message): bool
+function setComment(string $postID, string $username, string $message): bool
 {
-  $newComment = New Post();
-  return $newComment->newComment($postID, $name, $message);
+  $newComment = New Comment(array("postID" => $postID, "username" => $username, "message" => $message));
+  return $newComment->newComment();
 }
 
-function getComment($postId) {
-  $getComments = New Post();
-  return $getComments->getComments($postId);
-}
-
-function getOwner($postId) {
-  $getOwner = New Post();
-  return $getOwner->getOwner($postId);
+/**
+ * Call the Comment Class and the getComments function
+ *
+ * @param string $postID ID of the post
+ * @return array|false Post commentaries array if success, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function getComment(string $postID) {
+  $getComments = New Comment(array('postID' => $postID));
+  return $getComments->getComments();
 }
