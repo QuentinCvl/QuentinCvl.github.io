@@ -37,7 +37,10 @@ if (!isset($_SESSION['user']['id']) && !isset($_POST['loginBtn'])) {
         die('Erreur : l\'ID du post est introuvable.');
       }
     } elseif ($_GET['page'] === "updatePost") {
-      if (isset($_POST)) {
+      if(intval($_SERVER['CONTENT_LENGTH'])>0 && count($_POST)===0){
+        die('PHP discarded POST data because of request exceeding post_max_size.');
+      }
+      if (isset($_POST) && !empty($_POST)) {
         if (isset($_FILES['thumbnail'])) {
           updatePost($_POST, $_FILES['thumbnail']);
         } else {

@@ -4,17 +4,104 @@ class Post
 {
   private $dbh;
 
+  private $id;
+  private $title;
+  private $thumbnail;
+  private $content;
+  private $userID;
+  private $createdThe;
+
   /**
    * User class
    *
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
-  public function __construct()
+  public function __construct($values = array())
   {
     $BDD = new BDD();
     $this->dbh = $BDD->getConnection();
+
+    if(!empty($values)) {
+      $this->hydrate($values);
+    }
   }
 
+  public function hydrate($values) {
+    foreach ($values as $attribute => $value) {
+      $methode = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $attribute)));
+
+      if(is_callable(array($this, $methode))) {
+        $this->$methode($value);
+      }
+    }
+  }
+  /* ------ SETTER SECTION ------ */
+
+  /**
+   * Set id
+   * @param mixed $id
+   */
+  public function setId($id): void
+  {
+    $this->id = (int)$id;
+  }
+
+  /**
+   * Set title
+   * @param mixed $title
+   */
+  public function setTitle($title): void
+  {
+    $this->title = $title;
+  }
+
+  /**
+   * Set thumbnail
+   * @param mixed $thumbnail
+   */
+  public function setThumbnail($thumbnail): void
+  {
+    $this->thumbnail = $thumbnail;
+  }
+
+  /**
+   * Set content
+   * @param mixed $content
+   */
+  public function setContent($content): void
+  {
+    $this->content = $content;
+  }
+
+  /**
+   * Set userID
+   * @param mixed $userID
+   */
+  public function setUserID($userID): void
+  {
+    $this->userID = $userID;
+  }
+
+  /**
+   * Set createdThe
+   * @param mixed $createdThe
+   */
+  public function setCreatedThe($createdThe): void
+  {
+    $this->createdThe = $createdThe;
+  }
+
+  /* ------ END OF SETTER SECTION ------ */
+  /* ------ GETTER SECTION ------ */
+
+  /**
+   * @return mixed
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
+  /* ------ END OF GETTER SECTION ------ */
   /**
    * Get all no fav post
    *
@@ -84,14 +171,13 @@ class Post
   /**
    * Get data from specific post
    *
-   * @param string $id ID of the specific post
    * @return array|false Return the post data if success, false if not.
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
-  public function getPost(string  $id): array
+  public function getPost(): array
   {
     $req = $this->dbh->prepare("SELECT * FROM post WHERE id = :id");
-    $req->bindParam(':id', $id);
+    $req->bindParam(':id', $this->id);
     $req->execute();
     return $req->fetch(PDO::FETCH_ASSOC);
   }
@@ -103,10 +189,10 @@ class Post
    * @return array|false Return the owner data if success, false if not.
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
-  public function getOwner(string  $id): array
+  public function getOwner(): array
   {
     $req = $this->dbh->prepare("SELECT u.username, u.bio FROM user as u, post as p WHERE u.id = p.userID and p.id = :id");
-    $req->bindParam(':id', $id);
+    $req->bindParam(':id', $this->id);
     $req->execute();
     return $req->fetch(PDO::FETCH_ASSOC);
   }
@@ -120,28 +206,32 @@ class Post
    * @return string|void Return the new post id if success, void if not.
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
-  public function newPost(string $title, array $img, string $content)
+  public function newPost()
   {
     // Check if image is valid
-    $ext = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
+    $ext = strtolower(pathinfo($this->thumbnail['name'], PATHINFO_EXTENSION));
     if ($ext != "jpeg" && $ext != "jpg" && $ext != "png" && $ext != "gif") {
       die('Erreur : L\'image n\'est pas dans le bon format. Format accepté : JPEG, JPG, PNG, GIF');
     }
     $thumb = "wait";
 
-
     $req = $this->dbh->prepare("INSERT INTO post (title,thumbnail,content, userID, createdThe) 
                         VALUES (:title,:thumb,:content,:userID, NOW())");
-    $req->bindParam(':title', $title);
+    $req->bindParam(':title', $this->title);
     $req->bindParam(':thumb', $thumb);
-    $req->bindParam(':content', $content);
-    $req->bindParam(':userID', $_SESSION['id']);
+    $req->bindParam(':content', $this->content);
+    $req->bindParam(':userID', $_SESSION['user']['id']);
     $req->execute();
     $lastID = $this->dbh->lastInsertId();
 
+    if(!$lastID) {
+      echo "Erreur lors de l'ajout en base de donnée. Contectez l'administrateur ! <br/>";
+      die();
+    }
+
     $file = $lastID . '.' . $ext;
 
-    if (!move_uploaded_file($img["tmp_name"], "../public/images/post/" . $file)) {
+    if (!move_uploaded_file($this->thumbnail["tmp_name"], "../public/images/post/" . $file)) {
       echo "Erreur lors de l'ajout de la photo. Contectez l'administrateur !";
       die();
     }
@@ -161,15 +251,25 @@ class Post
    * @return int|false Return the post id if success, false if not.
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
-  public function updatePost(array $data, $img = false): int
+  public function updatePost(): int
   {
-    if ($img && $img['size'] > 0 && $img['error'] == 0) {
-      $ext = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
+    if ($this->thumbnail && $this->thumbnail['size'] > 0 && $this->thumbnail['error'] == 0) {
+      // Delete previous img
+      $folder = "../public/images/post/";
+      $extension = ["jpeg", "jpg", "png", "gif"];
+      foreach($extension as $ext) {
+        if(file_exists($folder.$this->id.'.'.$ext)) {
+          unlink($folder.$this->id.'.'.$ext);
+          break;
+        }
+      }
+
+      $ext = strtolower(pathinfo($this->thumbnail['name'], PATHINFO_EXTENSION));
       if ($ext != "jpeg" && $ext != "jpg" && $ext != "png" && $ext != "gif") {
         die('Erreur : L\'image n\'est pas dans le bon format. Format accepté : JPEG, JPG, PNG, GIF');
       }
-      $file = $data['id'] . '.' . $ext;
-      if (!move_uploaded_file($img["tmp_name"], "../public/images/post/" . $file)) {
+      $file = $this->id . '.' . $ext;
+      if (!move_uploaded_file($this->thumbnail["tmp_name"], "../public/images/post/" . $file)) {
         echo "Erreur lors de l'ajout de la photo. Contectez l'administrateur !";
         die();
       }
@@ -178,10 +278,10 @@ class Post
     } else {
       $req = $this->dbh->prepare("UPDATE post SET title = :title, content = :content WHERE id = :id");
     }
-    $req->bindParam(':title', $data['title']);
-    $req->bindParam(':content', $data['content']);
-    $req->bindParam(':id', $data['id']);
-    return $req->execute() ? (int)$data['id'] : false;
+    $req->bindParam(':title', $this->title);
+    $req->bindParam(':content', $this->content);
+    $req->bindParam(':id', $this->id);
+    return $req->execute() ? (int)$this->id : false;
   }
 
   /**
@@ -191,78 +291,17 @@ class Post
    * @return bool Return the true on success, false if not.
    * @author Quentin Cuvelier <quentincuvelier@laposte.net>
    */
-  public function deletePost(string $id): bool {
+  public function deletePost(): bool {
     $folder = "../public/images/post/";
     $extension = ["jpeg", "jpg", "png", "gif"];
     foreach($extension as $ext) {
-      if(file_exists($folder.$id.'.'.$ext)) {
-        unlink($folder.$id.'.'.$ext);
+      if(file_exists($folder.$this->id.'.'.$ext)) {
+        unlink($folder.$this->id.'.'.$ext);
         break;
       }
     }
     $req = $this->dbh->prepare("DELETE FROM post WHERE id = :id");
-    $req->bindParam(':id', $id);
-    $req->execute();
-    return (bool)$req->rowCount();
-  }
-
-  /**
-   * Get all commentaries of a specific post
-   *
-   * @return array|false Return the post commentaries if success, false if not.
-   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
-   */
-  public function getComments($postId): array
-  {
-    $req = $this->dbh->query("SELECT * FROM comment WHERE postID = '$postId'");
-    return $req->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  /**
-   * Create Comment function
-   *
-   * @param string $postID
-   * @param string $name
-   * @param string $message
-   * @return bool Return true if successfully created, false if not.
-   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
-   */
-  public function newComment(string $postID, string $name, string $message): bool
-  {
-    $validate = isset($_SESSION['user']) ? 1 : 0;
-    $req = $this->dbh->prepare("INSERT INTO comment (postID,username,message, publishedThe, validated) 
-                        VALUES (:postID,:username,:message, NOW(), :validated)");
-    $req->bindParam(':postID', $postID);
-    $req->bindParam(':username', $name);
-    $req->bindParam(':message', $message);
-    $req->bindParam(':validated', $validate);
-    return $req->execute();
-  }
-
-  /**
-   * Valid a specific commentary
-   *
-   * @param $id string ID of the commentary
-   * @return bool Return the true if successfully validated, false if not.
-   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
-   */
-  public function validateComment(string $id): bool {
-    $req = $this->dbh->prepare("UPDATE comment SET validated = 1 WHERE id = :id");
-    $req->bindParam(':id', $id);
-    $req->execute();
-    return (bool)$req->rowCount();
-  }
-
-  /**
-   * Delete a specific commentary
-   *
-   * @param $id string ID of the commentary
-   * @return bool Return the true if successfully deleted, false if not.
-   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
-   */
-  public function deleteComment(string $id): bool {
-    $req = $this->dbh->prepare("DELETE FROM comment WHERE id = :id");
-    $req->bindParam(':id', $id);
+    $req->bindParam(':id', $this->id);
     $req->execute();
     return (bool)$req->rowCount();
   }
