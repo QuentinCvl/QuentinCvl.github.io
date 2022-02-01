@@ -33,11 +33,15 @@ Afin de télécharger tous les paquets nécéssaires au bon fonctionnement du pr
 #### Base de donnée : 
 
 Dans le dossier nommer sql, vous trouverez le fichier sql 
-nommer phpBlog.sql servant a importer la base de donnée
+nommer phpBlog.sql servant a importer la base de donnée ainsi que 
+le fichier data.sql comportant un jeu données afin de pouvoir essayer 
+immédiatement le site
 
-Le shéma comprend :
-- La création des tables avec leurs attributs
+Les shéma comprennent donc :
+- La création des tables avec leurs attributs, les clés primaires et
+les clés étrangères
 - Un jeu de données afin de tester directement le site
 
-Pour importer la base de donnée, créer une nouvelle base de donnée
-nommée phpBlog, puis importer le fichier sql phpBlog.sql
+Pour importer la base de donnée, connecter vous à votre panel de gestion
+de base de donnée (phpMyAdmin par exemple ) puis importer le 
+fichier sql phpBlog.sql
