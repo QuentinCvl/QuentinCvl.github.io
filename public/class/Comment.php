@@ -175,13 +175,14 @@ class Comment
    */
   public function newComment(): bool
   {
-    $this->setValidated(isset($_SESSION['user']) ? 1 : 0);
+    $validated = isset($_SESSION['user']) ? 1 : 0;
+    $this->setValidated($validated);
     $req = $this->dbh->prepare("INSERT INTO comment (postID,username,message, publishedThe, validated) 
                         VALUES (:postID,:username,:message, NOW(), :validated)");
     $req->bindParam(':postID', $this->postID);
     $req->bindParam(':username', $this->username);
     $req->bindParam(':message', $this->message);
-    $req->bindParam(':validated', $this->validated);
+    $req->bindParam(':validated', $validated);
     return $req->execute();
   }
 
