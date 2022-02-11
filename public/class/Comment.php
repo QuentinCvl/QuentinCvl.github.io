@@ -1,5 +1,7 @@
 <?php
 
+namespace phpBlog\blog;
+
 class Comment
 {
   private $dbh;
@@ -161,7 +163,7 @@ class Comment
     $req->bindParam(':postID', $this->postID);
     $req->execute();
 
-    return $req->fetchAll(PDO::FETCH_ASSOC);
+    return $req->fetchAll(\PDO::FETCH_ASSOC);
   }
 
   /**

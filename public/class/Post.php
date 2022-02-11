@@ -1,5 +1,7 @@
 <?php
 
+namespace phpBlog\blog;
+
 class Post
 {
   private $dbh;
@@ -115,7 +117,7 @@ class Post
                 FROM post as p, user as u 
                 WHERE fav = 1 AND p.userID = u.id
                 ORDER BY createdThe LIMIT 3");
-    $fav = $req->fetchAll(PDO::FETCH_ASSOC);
+    $fav = $req->fetchAll(\PDO::FETCH_ASSOC);
 
     if(!isset($_SESSION)) session_start();
     $_SESSION['fav'] = $fav;
@@ -132,7 +134,7 @@ class Post
   public function getPopularPosts(): array
   {
     $req = $this->dbh->query("SELECT postID, count(*) as count FROM comment WHERE validated = 1 GROUP BY postID");
-    $comments = $req->fetchAll(PDO::FETCH_ASSOC);
+    $comments = $req->fetchAll(\PDO::FETCH_ASSOC);
 
     $columns = array_column($comments, 'count');
     array_multisort($columns, SORT_DESC, $comments);
@@ -148,7 +150,7 @@ class Post
       $req = $this->dbh->prepare($query);
       $req->bindParam(':id', $com['postID']);
       $req->execute();
-      $listPop[] = $req->fetch(PDO::FETCH_ASSOC);
+      $listPop[] = $req->fetch(\PDO::FETCH_ASSOC);
     }
 
     session_start();
@@ -165,7 +167,7 @@ class Post
   public function getPosts(): array
   {
     $req = $this->dbh->query("SELECT * FROM post WHERE fav = 0 ORDER BY createdThe DESC ");
-    return $req->fetchAll(PDO::FETCH_ASSOC);
+    return $req->fetchAll(\PDO::FETCH_ASSOC);
   }
 
   /**
@@ -179,7 +181,7 @@ class Post
     $req = $this->dbh->prepare("SELECT * FROM post WHERE id = :id");
     $req->bindParam(':id', $this->id);
     $req->execute();
-    return $req->fetch(PDO::FETCH_ASSOC);
+    return $req->fetch(\PDO::FETCH_ASSOC);
   }
 
   /**
@@ -194,7 +196,7 @@ class Post
     $req = $this->dbh->prepare("SELECT u.username, u.bio FROM user as u, post as p WHERE u.id = p.userID and p.id = :id");
     $req->bindParam(':id', $this->id);
     $req->execute();
-    return $req->fetch(PDO::FETCH_ASSOC);
+    return $req->fetch(\PDO::FETCH_ASSOC);
   }
 
   /**

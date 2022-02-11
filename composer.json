@@ -3,6 +3,9 @@
         "twig/twig": "^3.0"
     },
     "autoload": {
-        "classmap": ["public/class"]
+        "classmap": ["public/class"],
+        "psr-4": {
+            "phpBlog\\blog\\": "public/class"
+        }
     }
 }

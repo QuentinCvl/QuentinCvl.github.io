@@ -1,5 +1,7 @@
 <?php
 
+namespace phpBlog\blog;
+
 class User {
   public string $username;
   public string $pswd;
@@ -30,7 +32,7 @@ class User {
     $stmt->execute(array($this->username));
     $status = (bool)$stmt->rowCount();
     if($status) {
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      $row = $stmt->fetch(\PDO::FETCH_ASSOC);
       $pass_verif = password_verify($this->pswd, $row["password"]);
       if($pass_verif) {
         session_start();

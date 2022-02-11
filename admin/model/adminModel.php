@@ -1,5 +1,9 @@
 <?php
 
+Use phpBlog\blog\User;
+Use phpBlog\blog\Post;
+Use phpBlog\blog\Comment;
+
 /**
  * Call the Post Class and the login function
  *

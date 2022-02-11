@@ -5,6 +5,9 @@
       <div class="block-1-2 block-m-full popular__posts">
         <?php
         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+        if(empty($_SESSION['pop'])) { ?>
+          <p>Rien a afficher pour le moment. Revenez plus tard !</p>
+        <?php }
         foreach ($_SESSION['pop'] as $pop) : ?>
           <article class="col-block popular__post">
             <a href="index.php?page=post&id=<?php echo $pop['id'] ?>" class="popular__thumb">

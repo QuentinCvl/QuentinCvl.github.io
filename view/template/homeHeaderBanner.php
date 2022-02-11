@@ -2,6 +2,17 @@
   <div class="col-full">
     <div class="featured">
       <?php $i=0;
+      if(empty($_SESSION['fav'])) { ?>
+        <div class="featured__column featured__column--big">
+          <div class="entry" style="background-image:url('public/images/vide.png');">
+            <div class="entry__content">
+              <h1>
+                <a href="#" title="">Aucun Post pour le moment</a>
+              </h1>
+            </div>
+          </div>
+        </div>
+      <?php }
       foreach ($_SESSION['fav'] as $fav) : ?>
       <div class="featured__column featured__column--<?php echo $i === 0 ? 'big' : 'small' ?>">
         <div class="entry" style="background-image:url('public/images/post/<?php echo $fav['thumbnail'] ?>');">
