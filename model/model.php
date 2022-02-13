@@ -1,5 +1,8 @@
 <?php
 
+Use phpBlog\blog\Post;
+Use phpBlog\blog\Comment;
+
 function getFav() {
   $getFav = New Post();
   return $getFav->getFav();
