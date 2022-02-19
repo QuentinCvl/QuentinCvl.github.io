@@ -2,7 +2,7 @@
 
 namespace phpBlog\blog;
 
-class Post
+class Post extends BDD
 {
   private $dbh;
 

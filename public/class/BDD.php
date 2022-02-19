@@ -4,7 +4,7 @@ namespace phpBlog\blog;
 
 class BDD {
   PRIVATE $dbh;
-  public function __construct(){
+  protected function __construct(){
     try {
       $this->dbh = new \PDO("mysql:host=localhost;dbname=phpBlog", 'quentincvl', 'Mavie190716%');
       // Disable emulation of prepared statements

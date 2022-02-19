@@ -2,7 +2,7 @@
 
 namespace phpBlog\blog;
 
-class Comment
+class Comment extends BDD
 {
   private $dbh;
 

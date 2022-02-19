@@ -54,7 +54,6 @@ try {
         deletePost();
       } elseif ($_GET['page'] === "adminComment") {
         if(isset($_POST['commID'], $_POST['postID'])) {
-          print_r($_POST);
           if(isset($_POST['valid'])) {
             validComment($_POST['commID'], $_POST['postID']);
           } elseif (isset($_POST['delete'])) {

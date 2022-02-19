@@ -17,8 +17,8 @@ if(!isset($_SESSION)) session_start();
   <script src="public/js/modernizr.js"></script>
   <script src="public/js/pace.min.js"></script>
 
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="public/favicon.ico" type="image/x-icon">
 </head>
 <body id="top">
 <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {

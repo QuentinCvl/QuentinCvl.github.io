@@ -2,7 +2,8 @@
 
 namespace phpBlog\blog;
 
-class User {
+class User extends BDD
+{
   public string $username;
   public string $pswd;
   /**
