@@ -24,6 +24,7 @@ function connect(string $id, string $pswd) : bool {
  * @param $img Array Thumbnail image
  * @param $content String Content
  * @return string|void New post ID if successfully created, void if not.
+ * @throws Exception
  * @author Quentin Cuvelier <quentincuvelier@laposte.net>
  */
 function setPost(string $title, array $img, string $content) {
