@@ -1,34 +1,45 @@
 <?php
 
-class User {
-  public $username;
-  public $pswd;
+namespace phpBlog\blog;
 
-  public function __construct($username, $pswd)
+class User extends BDD
+{
+  public string $username;
+  public string $pswd;
+  /**
+   * User class
+   *
+   * @param $username String Username of the user
+   * @param $pswd String Password of the user
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   */
+  public function __construct(string $username, string $pswd)
   {
     $this->username = $username;
     $this->pswd = $pswd;
   }
 
-  public function login() {
+  /**
+   * Login function
+   * Check in BDD if user exist and if password match
+   *
+   * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+   * @return bool
+   */
+  public function login() : bool {
     $BDD = new BDD();
     $dbh = $BDD->getConnection();
     $stmt = $dbh->prepare("SELECT * FROM user WHERE username = ?");
     $stmt->execute(array($this->username));
-    $status =  $stmt->rowCount();
+    $status = (bool)$stmt->rowCount();
     if($status) {
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      /*$pass_verif = password_verify($this->pswd, $row["password"]);
+      $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+      $pass_verif = password_verify($this->pswd, $row["password"]);
       if($pass_verif) {
-        $_SESSION["id"] = (int)$row["id"];
-        $_SESSION["email"] = $row['email'];
-        $_SESSION["username"] = $row['username'];
-      }*/
-      if($this->pswd === $row["password"]) {
         session_start();
-        $_SESSION["id"] = (int)$row["id"];
-        $_SESSION["email"] = $row['email'];
-        $_SESSION["username"] = $row['username'];
+        $_SESSION['user']["id"] = (int)$row["id"];
+        $_SESSION['user']["email"] = $row['email'];
+        $_SESSION['user']["username"] = $row['username'];
       } else {
         return false;
       }

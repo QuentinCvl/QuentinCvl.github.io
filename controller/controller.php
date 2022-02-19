@@ -3,6 +3,14 @@ require 'model/model.php';
 
 // Each function is a root. She's calling the specific model function and the view
 
+function listFav() {
+  getFav();
+}
+
+function listPopularPosts() {
+  getPopularPosts();
+}
+
 function listPosts() {
   $posts = getPosts();
 
@@ -11,9 +19,24 @@ function listPosts() {
 
 function post() {
   $post = getPost($_GET['id']);
-  // get comment
+  $comment = getComment($_GET['id']);
+  $owner = getOwner($_GET['id']);
 
   require_once('view/post.php');
+}
+
+function addComment($postID, $name, $message) {
+  $status = setComment($postID, $name, $message);
+  if($status) {
+    header('Location: index.php?page=post&id='.$postID.'#comments');
+    exit();
+  } else {
+    throw new Exception('Le commentaire n\'a pas pu être ajouté !');
+  }
+}
+
+function about() {
+  require_once('view/about.php');
 }
 
 function contact() {

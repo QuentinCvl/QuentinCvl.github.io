@@ -2242,6 +2242,7 @@ body.search-is-visible {
     display: block;
     color: rgba(255, 255, 255, 0.6);
     line-height: 39px;
+    text-transform: capitalize;
 }
 
 .header__nav li.has-children > a::after {
@@ -4135,8 +4136,26 @@ footer h4::after {
     padding-top: 1.8rem;
 }
 
-/* comments form
- * ---------------------------- */
+.comment .adminCommentBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    /* Remove Btn style */
+    padding: 0;
+    border: none;
+    background: transparent;
+    font-size: initial;
+}
+.comment .adminCommentBtn.delete {
+    color: red;
+}
+.comment .adminCommentBtn.validate {
+    right: 20px;
+    color: green;
+}
+    /* comments form
+     * ---------------------------- */
 #comments .respond {
     padding-top: 4.2rem;
 }

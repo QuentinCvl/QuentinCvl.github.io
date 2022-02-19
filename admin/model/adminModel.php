@@ -1,74 +1,95 @@
 <?php
 
-function dbConnect() {
-  $BDD = new BDD();
-  return $BDD->getConnection();
-}
+Use phpBlog\blog\User;
+Use phpBlog\blog\Post;
+Use phpBlog\blog\Comment;
 
-function login($id, $pswd) {
+/**
+ * Call the Post Class and the login function
+ *
+ * @param $id string User username (ID)
+ * @param $pswd string User password
+ * @return bool Return true if logged, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function connect(string $id, string $pswd) : bool {
   $login = new User($id, $pswd);
   return $login->login();
 }
-/* Create a post */
-function setPost($title, $img, $content)
-{
-  /* Check if image is valid */
-  $ext = strtolower(pathinfo($img['name'],PATHINFO_EXTENSION));
-  if($ext != "jpeg" && $ext != "jpg" &&  $ext != "png" && $ext != "gif") {
-    die('Erreur : L\'image n\'est pas dans le bon format. Format accepté : JPEG, JPG, PNG, GIF');
-  }
-  $thumb = "wait";
-  $dbh = dbConnect();
-  $req = $dbh->prepare("INSERT INTO post (title,thumbnail,content, userID, createdThe) 
-                        VALUES (?,?,?,?, NOW())");
-  $req->execute(array($title, $thumb, $content, $_SESSION['id']));
-  $lastID = $dbh->lastInsertId();
 
-  $file = $lastID.'.'. $ext;
-
-  if(!move_uploaded_file($img["tmp_name"], "../public/images/post/".$file)) {
-    echo "Erreur lors de l'ajout de la photo. Contectez l'administrateur !";
-    die();
-  }
-
-  $req = $dbh->query("UPDATE post SET thumbnail = '$file' WHERE id = '$lastID'");
-  return $lastID;
+/**
+ * Call the Post Class and the newPost function
+ *
+ * @param $title String Tile of the new publication
+ * @param $img Array Thumbnail image
+ * @param $content String Content
+ * @return string|void New post ID if successfully created, void if not.
+ * @throws Exception
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function setPost(string $title, array $img, string $content) {
+  $newPost = New Post(array('title' => $title, 'thumbnail' => $img, 'content' => $content));
+  return $newPost->newPost();
 }
 
-function getUpdateData($id)
-{
-  $dbh = dbConnect();
-  $req = $dbh->query("SELECT title, thumbnail, content FROM post WHERE id = '$id'");
-  return $req->fetch(PDO::FETCH_ASSOC);
+/**
+ * Call the Post Class and the getUpdateData function
+ *
+ * @param $id String ID of the post
+ * @return array|false Post data if success, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function getUpdateData(string $id): array {
+  $getData = New Post(array('id' => $id));
+  return $getData->getPost();
 }
 
-/* update a post */
-function updPost($data, $img = false) {
-  $dbh = dbConnect();
-  if($img && $img['size'] > 0 && $img['error'] == 0) {
-    $ext = strtolower(pathinfo($img['name'],PATHINFO_EXTENSION));
-    if($ext != "jpeg" && $ext != "jpg" &&  $ext != "png" && $ext != "gif") {
-      die('Erreur : L\'image n\'est pas dans le bon format. Format accepté : JPEG, JPG, PNG, GIF');
-    }
-    $file = $data['id'].'.'. $ext;
-    if(!move_uploaded_file($img["tmp_name"], "../public/images/post/".$file)) {
-      echo "Erreur lors de l'ajout de la photo. Contectez l'administrateur !";
-      die();
-    }
-    $req = $dbh->prepare("UPDATE post SET title = :title, thumbnail = :thumb, content = :content WHERE id = :id");
-    $req->execute(array(":title" => $data['title'], ":thumb" => $file, ":content" => $data['content'],
-      ":id" => $data['id']));
-  } else {
-    $req = $dbh->prepare("UPDATE post SET title = :title, content = :content WHERE id = :id");
-    $req->execute(array(":title" => $data['title'], ":content" => $data['content'], ":id" => $data['id']));
-  }
-  return $data['id'];
+/**
+ * Call the Post Class and the updatePost function
+ *
+ * @param $data array New data of the post
+ * @param $img array [Optional] New thumbnail of the post
+ * @return int|false Post id if success, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function updPost(array $data, $img = false): int {
+  $updatePost = New Post(array('id' => $data['id'], 'title' => $data['title'], 'content' => $data['content'],
+    'thumbnail' => $img));
+  return $updatePost->updatePost();
 }
-/* Delete a post */
-function delPost($postId) {
-  $dbh = dbConnect();
-  $req = $dbh->prepare("DELETE FROM post WHERE id ='$postId'");
-  $req->execute();
 
-  return $req->rowCount();
+/**
+ * Call the Post Class and the deletePost function
+ *
+ * @param $postId string ID of the specific post
+ * @return bool True on success, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function delPost(string $postId): bool{
+  $deletePost = New Post(array('id' => $postId));
+  return $deletePost->deletePost();
+}
+
+/**
+ * Call the Post Class and the validateComment function
+ *
+ * @param $commID string ID of the specific comment
+ * @return bool True on success, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function valComment(string $commID): bool{
+  $valComment = New Comment(array('id' => $commID));
+  return $valComment->validateComment();
+}
+
+/**
+ * Call the Post Class and the deleteComment function
+ *
+ * @param $commID string ID of the specific comment
+ * @return bool True on success, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function delComment(string $commID): bool{
+  $deleteComment = New Comment(array('id' => $commID));
+  return $deleteComment->deleteComment();
 }

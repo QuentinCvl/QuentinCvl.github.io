@@ -5,8 +5,11 @@ P5 - OpenClassrooms - Créez votre premier blog en PHP
 
 - Trouver et implémenter le template choisi
 - Retirer les fichiers inutiles
-- Spérarer en plusieurs fichiers les élements qui peuvent l'être (Header / Footer par exemple)
+- Préparer un template d'affichage principale
 - Implémenter le MVC et le routeur
+- Créer la vue affichant la liste des articles
+- Créer la vue affichant le detail d'un article et ses commentaires
+- 
 
 ## Installer le projet
 
@@ -29,4 +32,16 @@ Afin de télécharger tous les paquets nécéssaires au bon fonctionnement du pr
 
 #### Base de donnée : 
 
-A définir
+Dans le dossier nommer sql, vous trouverez le fichier sql 
+nommer phpBlog.sql servant a importer la base de donnée ainsi que 
+le fichier data.sql comportant un jeu données afin de pouvoir essayer 
+immédiatement le site
+
+Les shéma comprennent donc :
+- La création des tables avec leurs attributs, les clés primaires et
+les clés étrangères
+- Un jeu de données afin de tester directement le site
+
+Pour importer la base de donnée, connecter vous à votre panel de gestion
+de base de donnée (phpMyAdmin par exemple ) puis importer le 
+fichier sql phpBlog.sql

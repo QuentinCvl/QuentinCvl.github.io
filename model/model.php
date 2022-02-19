@@ -1,20 +1,57 @@
 <?php
 
-function dbConnect() {
-  $BDD = new BDD();
-  return $BDD->getConnection();
+Use phpBlog\blog\Post;
+Use phpBlog\blog\Comment;
+
+function getFav() {
+  $getFav = New Post();
+  return $getFav->getFav();
+}
+
+function getPopularPosts() {
+  $getPopularPosts = New Post();
+  return $getPopularPosts->getPopularPosts();
 }
 
 function getPosts() {
-  $dbh = dbConnect();
-  $req = $dbh->query("SELECT * FROM post ORDER BY createdThe DESC");
-  return $data = $req->fetchAll(PDO::FETCH_ASSOC);
+  $getPosts = New Post();
+  return $getPosts->getPosts();
 }
 
 function getPost($postId) {
-  $dbh = dbConnect();
-  $req = $dbh->query("SELECT * FROM post WHERE id = '$postId'");
-  return $post = $req->fetch(PDO::FETCH_ASSOC);
+  $getPost = New Post(array('id' => $postId));
+  return $getPost->getPost();
+
 }
 
-// TODO: Create the fonction for comment
+function getOwner($postId) {
+  $getOwner = New Post(array('id' => $postId));
+  return $getOwner->getOwner();
+}
+
+/**
+ * Call the Comment Class and the newComment function
+ *
+ * @param string $postID ID of the post who receive the new comment
+ * @param string $username Username of the user who create the comment
+ * @param string $message Comment content
+ * @return bool True if successfully created, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function setComment(string $postID, string $username, string $message): bool
+{
+  $newComment = New Comment(array("postID" => $postID, "username" => $username, "message" => $message));
+  return $newComment->newComment();
+}
+
+/**
+ * Call the Comment Class and the getComments function
+ *
+ * @param string $postID ID of the post
+ * @return array|false Post commentaries array if success, false if not.
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function getComment(string $postID) {
+  $getComments = New Comment(array('postID' => $postID));
+  return $getComments->getComments();
+}
