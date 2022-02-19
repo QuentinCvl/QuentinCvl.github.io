@@ -31,7 +31,7 @@ function addComment($postID, $name, $message) {
     header('Location: index.php?page=post&id='.$postID.'#comments');
     exit();
   } else {
-    die('Something wrong append');
+    throw new Exception('Le commentaire n\'a pas pu être ajouté !');
   }
 }
 

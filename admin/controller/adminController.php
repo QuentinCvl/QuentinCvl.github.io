@@ -49,7 +49,7 @@ function deletePost()
   if($del) {
     header('Location: ../index.php');
     exit();
-  } else echo "Post are NOT deleted";
+  } else throw new Exception('deletePost : Le post n\a pas était supprimé');
 }
 
 function validComment($commID, $postID) {

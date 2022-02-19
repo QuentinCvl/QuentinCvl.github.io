@@ -213,7 +213,7 @@ class Post
     // Check if image is valid
     $ext = strtolower(pathinfo($this->thumbnail['name'], PATHINFO_EXTENSION));
     if ($ext != "jpeg" && $ext != "jpg" && $ext != "png" && $ext != "gif") {
-      die('Erreur : L\'image n\'est pas dans le bon format. Format accepté : JPEG, JPG, PNG, GIF');
+      throw new \Exception('L\'image n\'est pas dans le bon format. Format accepté : JPEG, JPG, PNG, GIF');
     }
     $thumb = "wait";
 
@@ -227,15 +227,13 @@ class Post
     $lastID = $this->dbh->lastInsertId();
 
     if(!$lastID) {
-      echo "Erreur lors de l'ajout en base de donnée. Contectez l'administrateur ! <br/>";
-      die();
+      throw new \Exception("Erreur lors de l'ajout de la publication en base de donnée.");
     }
 
     $file = $lastID . '.' . $ext;
 
     if (!move_uploaded_file($this->thumbnail["tmp_name"], "../public/images/post/" . $file)) {
-      echo "Erreur lors de l'ajout de la photo. Contectez l'administrateur !";
-      die();
+      throw new \Exception("Erreur lors de l'ajout de la photo");
     }
 
     $req = $this->dbh->prepare("UPDATE post SET thumbnail = :file WHERE id = :id");
@@ -268,12 +266,11 @@ class Post
 
       $ext = strtolower(pathinfo($this->thumbnail['name'], PATHINFO_EXTENSION));
       if ($ext != "jpeg" && $ext != "jpg" && $ext != "png" && $ext != "gif") {
-        die('Erreur : L\'image n\'est pas dans le bon format. Format accepté : JPEG, JPG, PNG, GIF');
+        throw new \Exception('Erreur : L\'image de mise a jour n\'est pas dans le bon format.');
       }
       $file = $this->id . '.' . $ext;
       if (!move_uploaded_file($this->thumbnail["tmp_name"], "../public/images/post/" . $file)) {
-        echo "Erreur lors de l'ajout de la photo. Contectez l'administrateur !";
-        die();
+        throw new \Exception('Erreur lors de la mise a jour de la photo.');
       }
       $req = $this->dbh->prepare("UPDATE post SET title = :title, thumbnail = :thumb, content = :content WHERE id = :id");
       $req->bindParam(':thumb', $file);
