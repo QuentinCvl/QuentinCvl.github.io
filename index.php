@@ -37,4 +37,3 @@ try {
   $errorMsg = $e->getMessage();
   require_once('view/errorView.php');
 }
-
