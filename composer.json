@@ -1,4 +1,5 @@
 {
+    "license": "proprietary",
     "require": {
         "twig/twig": "^3.0"
     },
