@@ -14,9 +14,12 @@ if(!isset($_SESSION)) session_start();
           <?php echo $post['title'] ?>
         </h1>
         <ul class="s-content__header-meta">
-          <li class="date"><?php
+          <li class="date">Crée le : <?php
             setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-            echo strftime("%d %B %Y", strtotime($post['createdThe']));
+            echo strftime("%d %B %Y à %Hh%M", strtotime($post['createdThe']));
+            ?></li>
+          <li class="date">Modifié le : <?php
+            echo strftime("%d %B %Y à %Hh%M", strtotime($post['updateThe']));
             ?></li>
         </ul>
       </div>

@@ -1,11 +1,6 @@
 <?php
 require 'model/adminModel.php';
 
-function adminHome()
-{
-  require_once('view/home.php');
-}
-
 function login($id, $pswd)
 {
   $login = connect($id, $pswd);
