@@ -49,18 +49,18 @@ ob_start();
 
       <h3>Dite nous bonjour.</h3>
 
-      <form name="cForm" id="cForm" method="post" action="">
+      <form name="cForm" id="cForm" method="post" action="index.php?page=sendMail">
         <fieldset>
           <div class="form-field">
-            <input name="cName" type="text" id="cName" class="full-width" placeholder="Nom" value="">
+            <input name="cName" type="text" id="cName" class="full-width" placeholder="Nom" value="" style="color: black">
           </div>
 
           <div class="form-field">
-            <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Adresse email" value="">
+            <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Adresse email" value="" style="color: black">
           </div>
 
           <div class="message form-field">
-            <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Message"></textarea>
+            <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Message" style="color: black"></textarea>
           </div>
 
           <button type="submit" class="submit btn btn--primary full-width">Envoyer</button>

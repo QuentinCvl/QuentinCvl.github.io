@@ -42,3 +42,16 @@ function about() {
 function contact() {
   require_once('view/contact.php');
 }
+
+/**
+ * @throws Exception
+ */
+function sendingMail($name, $email, $message) {
+  $status = sendMail($name, $email, $message);
+  if($status) {
+    header('Location: index.php?page=contact');
+    exit();
+  } else {
+    throw new Exception('Le message n\'a pas pu être envoyé !');
+  }
+}

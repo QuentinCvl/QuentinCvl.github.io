@@ -1,4 +1,4 @@
-<article class="masonry__brick entry format-standard" data-aos="fade-up">
+<article class="masonry__brick entry format-standard">
   <div class="entry__thumb">
     <a href="index.php?page=post&id=<?php echo $post['id'] ?>" class="entry__thumb-link">
       <img src="public/images/post/<?php echo $post['thumbnail'] ?>" alt="">

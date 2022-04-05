@@ -4,7 +4,7 @@ namespace phpBlog\blog;
 
 class Comment extends BDD
 {
-  private $dbh;
+  private \PDO $dbh;
 
   private int $id;
   private int $postID;

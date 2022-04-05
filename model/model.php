@@ -2,6 +2,7 @@
 
 Use phpBlog\blog\Post;
 Use phpBlog\blog\Comment;
+use phpBlog\blog\MailManager;
 
 function getFav() {
   $getFav = New Post();
@@ -54,4 +55,20 @@ function setComment(string $postID, string $username, string $message): bool
 function getComment(string $postID) {
   $getComments = New Comment(array('postID' => $postID));
   return $getComments->getComments();
+}
+
+/**
+ * Call the Comment Class and the getComments function
+ *
+ * @param string $name
+ * @param string $email
+ * @param string $message
+ * @return bool Post commentaries array if success, false if not.
+ * @throws Exception
+ * @author Quentin Cuvelier <quentincuvelier@laposte.net>
+ */
+function sendMail(string $name, string $email, string $message): bool
+{
+  $sendMail = New MailManager($name, $email, $message);
+  return $sendMail->sendMail();
 }

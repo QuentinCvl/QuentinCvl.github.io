@@ -26,6 +26,13 @@ try {
       session_destroy();
       header('Location: admin/');
       exit();
+    } elseif ($_GET['page'] === "sendMail") {
+      if(isset($_POST['cName'], $_POST['cEmail'], $_POST['cMessage'])
+        && !empty(trim($_POST['cName'])) && !empty(trim($_POST['cEmail'])) && !empty(trim($_POST['cMessage']))) {
+        sendingMail(trim($_POST['cName']), trim($_POST['cEmail']), trim($_POST['cMessage']));
+      } else {
+        throw new Exception('sendMail : Certain champs sont vides.');
+      }
     } else {
       throw new Exception('La page demandé n\'éxiste pas !');
     }

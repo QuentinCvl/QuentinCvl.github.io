@@ -1,7 +1,6 @@
 <?php
 require 'model/adminModel.php';
 
-
 function login($id, $pswd)
 {
   $login = connect($id, $pswd);

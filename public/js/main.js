@@ -47,14 +47,14 @@
 
    /* mediaelement
     * ------------------------------------------------------ */
-    let clMediaElement = function() {
+    /*let clMediaElement = function() {
 
         $('audio').mediaelementplayer({
             pluginPath: 'https://cdnjs.com/libraries/mediaelement/',
             shimScriptAccess: 'always'
         });
 
-    };
+    };*/
 
 
    /* FitVids
@@ -143,6 +143,7 @@
     /* Mobile Menu
      * ---------------------------------------------------- */
     let clMobileMenu = function() {
+        console.log('menu mobile')
 
         let navWrap = $('.header__nav-wrap'),
             closeNavWrap = navWrap.find('.header__overlay-close'),
@@ -151,7 +152,7 @@
         
         menuToggle.on('click', function(e) {
             let $this = $(this);
-
+            console.log($this);
             e.preventDefault();
             e.stopPropagation();
             siteBody.addClass('nav-wrap-is-visible');
@@ -174,7 +175,7 @@
         $('.header__nav .has-children').children('a').on('click', function (e) {
             e.preventDefault();
 
-            if ($(".close-mobile-menu").is(":visible") == true) {
+            if ($(".close-mobile-menu").is(":visible") === true) {
 
                 $(this).toggleClass('sub-menu-is-open')
                     .next('ul')
@@ -195,7 +196,7 @@
 
    /* Masonry
     * ---------------------------------------------------- */ 
-    let clMasonryFolio = function () {
+    /*let clMasonryFolio = function () {
         
         let containerBricks = $('.masonry');
 
@@ -212,12 +213,12 @@
         containerBricks.imagesLoaded().progress( function() {
             containerBricks.masonry('layout');
         });
-    };
+    };*/
 
 
    /* slick slider
     * ------------------------------------------------------ */
-    let clSlickSlider = function() {
+    /*let clSlickSlider = function() {
 
         let $gallery = $('.slider__slides').slick({
             arrows: false,
@@ -235,7 +236,7 @@
             $gallery.slick('slickGoTo', parseInt($gallery.slick('slickCurrentSlide'))+1);
         });
     
-    };
+    };*/
 
 
    /* Smooth Scrolling
@@ -615,12 +616,12 @@
     (function ssInit() {
         
         clPreloader();
-        clMediaElement();
+        // clMediaElement();
         clPrettyPrint();
         clSearch();
         clMobileMenu();
-        clMasonryFolio();
-        clSlickSlider();
+        // clMasonryFolio();
+        // clSlickSlider();
         clSmoothScroll();
         clPlaceholder();
         clAlertBoxes();

@@ -42,8 +42,8 @@ if(!isset($_SESSION)) session_start();
 </div>
 
 <script src="public/js/jquery-3.2.1.min.js"></script>
-<script src="public/js/plugins.js"></script>
 <script src="public/js/main.js"></script>
+<script src="public/js/plg.js"></script>
 <?php if (isset($_GET['page']) && $_GET['page'] === "contact") : ?>
   <script src="https://maps.googleapis.com/maps/api/js"></script>
 <?php endif; ?>
