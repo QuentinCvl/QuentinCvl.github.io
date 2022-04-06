@@ -38,7 +38,7 @@ class MailManager
       $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
       $mail->SMTPDebug   = false;                                   //Enable SMTP Debug
       $mail->Username   = 'contact@quentincvl.fr';                     //SMTP username
-      $mail->Password   = 'Shadow050796%';                               //SMTP password
+      $mail->Password   = '###########';                               //SMTP password
       $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
       $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
       $mail->CharSet    = 'UTF-8';
